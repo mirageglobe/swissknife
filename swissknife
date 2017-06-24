@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# Author Jimmy <mirageglobe@gmail.com / jimmy@geniac.com>
+
+# ----- common functions
+
+yell() { echo "$0: $*" >&2; }
+die() { yell "$*"; exit 111; }
+try() { "$@" || die "cannot $*"; }
+
+# ----- local functions
+
+buildReport() {
+  LOCAL_LOGIN=$1
+  LOCAL_SERVER=$2
+
+  if [[ -z "$LOCAL_LOGIN" ]] || [[ -z "$LOCAL_SERVER" ]]; then
+    echo "missing variables (login name). retype bash command to see."
+  else
+    echo "Logging onto server environment ($LOCAL_SERVER)"
+    ssh $LOCAL_LOGIN@$LOCAL_SERVER 'sudo bash -s' < swissknife.docker-report.sh
+    ssh $LOCAL_LOGIN@$LOCAL_SERVER 'tail -10 report.yml'
+  fi
+}
+
+# ----- check arguments
+DF_VERSION="0.1.0"
+DF_TITLE="***"
+DF_LINE="*** -----"
+DF_TEXT="     "
+
+EXPECTED_ARGS=1
+E_BADARGS=65
+
+if [ "$#" -lt "$EXPECTED_ARGS" ]; then
+  echo "$DF_LINE"
+  echo "$DF_TITLE SwissKnife Script Loader (inspired by Samurai / Terracotta) : "
+  echo "$DF_TITLE USAGE :"
+  echo "$DF_TEXT $0 [options]                       "
+  echo "$DF_TEXT                                    "
+  echo "$DF_TITLE OPTIONS :"
+  echo "$DF_TEXT $0                           # help"
+  echo "$DF_TEXT $0 ls                        # show all local swissknife scripts"
+  echo "$DF_LINE"
+  exit $E_BADARGS
+fi
+
+# ----- main functions
+
+SK_CMD=$1
+SK_LOGIN=$2
+
+case "$SK_CMD" in
+  opt-1)
+    echo "Logging onto local server environment"
+    buildReport $SK_LOGIN 10.131.4.40
+    ;;
+  ls)
+    echo "test ls"
+    ;;
+  *)
+    die
+esac
+
