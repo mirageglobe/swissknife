@@ -1,11 +1,5 @@
-# README #
 
-This README documents whatever steps are necessary to get your application up and running.
-
-## What is this repository for? ##
-
-* Quick summary
-
+# JSK (jimmys swissknife) #
 This project has been shifted to be simply named *jimmys swiss-knife (JSK)*. JSK is a commandline application that does the following:
 
 * converts common sound/music formats to be of mp3
@@ -15,24 +9,19 @@ This project has been shifted to be simply named *jimmys swiss-knife (JSK)*. JSK
 
 The rational for this is that there are various tools that are fully equipped to do various fine grained optimisations however this comes as a cost for complexity. The key aim for this project is to have an all in one tool that can optimise all three of the filetypes and focus on one/two commmon outputs that is suffice for general use. The trade of is simplicity vs functionality coverage. This tool focuses on simplicity and core tooling.
 
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+## How to run ##
 
-## How do I get set up? ##
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+to run and see options/help,
+```
+  $ sh jsk.[tool].sh
+```
 
 ## Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+a few points to note before submitting PR :
 
-### Who do I talk to? ###
+- ensure this is tested on debian (as indicated in vagrantfile)
 
-* Repo owner or admin
-* Other community or team contact
+## Who to contact ##
+
+developer : Jimmy Lim (mirageglobe@gmail.com)
