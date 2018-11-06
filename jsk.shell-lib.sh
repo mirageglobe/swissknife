@@ -127,3 +127,28 @@ bbparseyaml() {
   }'
 }
 
+yell() { echo "$0: $*" >&2; }
+die() { yell "$*"; exit 111; }
+try() { "$@" || die "cannot $*"; }
+quit() { exit 0; }
+
+#set -e
+
+#echo "[+] test bash script"
+#echo ${BASH_SOURCE[0]}
+
+# shows the first 2 variables
+#echo "[+] show variable 0 and variable 1"
+#echo $0
+#echo $1
+
+# runs the great functions above
+#quit
+#try echo "echotestfunction"
+
+# exits the scripts whether run using bash command or using path
+#return 0 2> /dev/null || exit 0
+
+#echo "this shouldnt show"
+
+
