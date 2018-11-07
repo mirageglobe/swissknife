@@ -10,7 +10,9 @@
 # ----- include constants
 
 # program base name or use $0
-prog_basename=$(basename "${0}")
+app_basename=$(basename "${0}")
+app_argv1=$(basename "${1}")
+app_argv2=$(basename "${2}")
 
 
 # ----- include functions
@@ -24,37 +26,38 @@ print_help() {
 
   cat <<HEREDOC
 
-SCRIPTNAME
-  this utility app checks nginx config ...
+SHELLAPP
+  this utility app prints/execute helper functions to manage this application
 
   version       v0.1.0
   author/site   jimmylim (mirageglobe@gmail.com) / www.mirageglobe.com
 
 usage:
-  ${prog_basename} [command]
-  ${prog_basename} [--options] [<arguments>]
-  ${prog_basename} -h | --help
+  ${app_basename} [command]
+  ${app_basename} [--options] [<arguments>]
+  ${app_basename} -h | --help
 
 options:
   -h --help  Display this help information.
 
 examples:
-  ${prog_basename} -y (to confirm launch script)
+  ${app_basename} -y (to confirm launch script)
 
 HEREDOC
 }
 
-is_installed() {
-  echo "$DTTITLE checking nginx"
-  command -v nginx >/dev/null 2>&1 || { echo >&2 "$DTTEXT nginx not installed ... [abort]"; exit 1; }
+sl_is_installed() {
+  # returns the path with true 0 or null 1
+  command -v "$1" >/dev/null 2>&1
+
+  # ref : command -v "$1" >/dev/null 2>&1 || { echo >&2 "nginx not installed ... [abort]"; exit 1; }
 }
 
-file_exists() {
-  if [ -f /etc/nginx/conf.d/samuraitoolkit.conf ]; then
-    echo "$DTTEXT found nginx config file. already installed ... [abort]"
-    exit 1
+sl_file_exists() {
+  if [ -f "$1" ]; then
+    true # return true or 0 (0=true); i.e num of errors = 0
   else
-    echo "$DTTEXT trying to create etc/nginx/conf.d/samuraitoolkit.conf"
+    false # return false or 1 (1=false); i.e. num of errors > 0
   fi
 }
 
@@ -70,5 +73,5 @@ fi
 
 # ----- main code
 
-echo "complete ... [ok]"
-
+echo "$app_argv1 ... [searching]"
+if sl_is_installed "$app_argv1"; then echo "$app_argv1 installed"; else echo "$app_argv1 not installed"; fi
