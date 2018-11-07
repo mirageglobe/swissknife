@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 # ----- shell library project information
 # author/site : jimmy mg lim (mirageglobe@gmail.com)
@@ -103,47 +104,20 @@ _replace_text()
   echo "$returnvar"
 }
 
-_is_installed()
-{
-  # check if application is installed
-  # returns the path with true 0 or null 1
-  command -v "$1" >/dev/null 2>&1
-
-  # ref : command -v "$1" >/dev/null 2>&1 || { echo >&2 "nginx not installed ... [abort]"; exit 1; }
-}
-
-  if [ -f "$1" ]; then
-    true # return true or 0 (0=true); i.e num of errors = 0
-  else
-    false # return false or 1 (1=false); i.e. num of errors > 0
-  fi
-
-
-_parse_yaml() {
-  # to use include . bash.parse.yaml.sh
-  # https://gist.github.com/pkuczynski/8665367
-
-  local prefix=$2
-  local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
-  sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
-    -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $1 |
-  awk -F$fs '{
-  indent = length($1)/2;
-  vname[indent] = $2;
-  for (i in vname) {if (i > indent) {delete vname[i]}}
-    if (length($3) > 0) {
-      vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
-      printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
-    }
-  }'
-}
-
 _print_success () {
   printf "\\n\\342\\234\\224  %s" "$1"
 }
 
 _print_error () {
   printf "\\n\\342\\234\\226  %s" "$1"
+}
+
+_is_installed() {
+  # check if application is installed
+  # returns the path with true 0 or null 1
+  command -v "$1" >/dev/null 2>&1
+
+  # ref : command -v "$1" >/dev/null 2>&1 || { echo >&2 "nginx not installed ... [abort]"; exit 1; }
 }
 
 _is_macos() {
@@ -166,6 +140,40 @@ _is_linux() {
   return $rtn_val
 }
 
+_file_exists() {
+  if [ -f "$1" ]; then
+    true # return true or 0 (0=true); i.e num of errors = 0
+  else
+    false # return false or 1 (1=false); i.e. num of errors > 0
+  fi
+}
+
+_directory_exists() {
+  if [ -d "$1" ]; then
+    true # return true or 0 (0=true); i.e num of errors = 0
+  else
+    false # return false or 1 (1=false); i.e. num of errors > 0
+  fi
+}
+
+_parse_yaml() {
+  # to use include . bash.parse.yaml.sh
+  # https://gist.github.com/pkuczynski/8665367
+
+  local prefix=$2
+  local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+  sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
+    -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $1 |
+  awk -F$fs '{
+  indent = length($1)/2;
+  vname[indent] = $2;
+  for (i in vname) {if (i > indent) {delete vname[i]}}
+    if (length($3) > 0) {
+      vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+      printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
+    }
+  }'
+}
 
 _yell() { echo "$0: $*" >&2; }
 _die() { yell "$*"; exit 111; }
@@ -188,7 +196,4 @@ _quit() { exit 0; }
 
 # exits the scripts whether run using bash command or using path
 #return 0 2> /dev/null || exit 0
-
-#echo "this shouldnt show"
-
 

@@ -20,6 +20,12 @@ to run and see options/help,
   $ sh jsk.[tool].sh
 ```
 
+shellcheck treats local declarations as non POSIX, however local is widely used. enable using by added in your vimrc
+```
+  " allow the use of 'local'
+  let g:syntastic_sh_shellcheck_args="-e SC2039"
+```
+
 # Guidelines #
 
 a few points to note before submitting PR :
