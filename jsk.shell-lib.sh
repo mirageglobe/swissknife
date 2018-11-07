@@ -1,26 +1,30 @@
-# ----- information
-# version 1.4.0
 
-# ----- notes
-# [›] usage:
-#     source "./includebash.sh"
-#     or
-      # if config file exists, use the variables.
-#     if [ -f includebash.sh ]; then
-#       source includebash.sh
-#     else
-#       echo "[!] warning - includebash.sh not found. things may look uglier."
-#     fi
+# ----- shell library project information
+# author/site : jimmy mg lim (mirageglobe@gmail.com)
+# version     : v0.2.0
+# source      : https://github.com/mirageglobe/jsk
 
-# [›] limitations:
-#     - script has to be in same directory of running
-
-# [›] tips:
-#     - exit code such as exit 0 or exit 1 in bash. 0 is successful exit, and 1 or more is failed exit
+# ----- instructions
+# usage:
+#   # either copy and paste the function or add to source in the header of your project
+#
+#   source "./jsk.shell-lib.sh"
+#
+#   # if config file exists, use the variables.
+#
+#   if [ -f jsk.shell-lib.sh ]; then
+#     source jsk.shell-lib.sh
+#   fi
+#
+# limitations:
+#   - script has to be in same directory of running
+#
+# tips:
+#   - exit code such as exit 0 or exit 1 in bash. 0 is successful exit, and 1 or more is failed exit
 
 # ----- functions
 
-bbspinner()
+sl_spinner()
 {
   # define a timestamp function
   local returnvar=''
@@ -42,7 +46,7 @@ bbspinner()
   echo "$returnvar"
 }
 
-bbtimestamp()
+sl_timestamp()
 {
   # define a timestamp function
   local returnvar=''
@@ -52,7 +56,7 @@ bbtimestamp()
   echo "$returnvar"
 }
 
-bbdatestamp()
+sl_datestamp()
 {
   # define a datestamp function
   local returnvar=''
@@ -62,7 +66,7 @@ bbdatestamp()
   echo "$returnvar"
 }
 
-bbbackup()
+sl_backup()
 {
   # backup single file via rsync and append datestamp
   # to use: ibcopy "path/to/my/folder/or/file" "path/to/destination"
@@ -71,7 +75,7 @@ bbbackup()
   echo "$returnvar"
 }
 
-bbcopy()
+sl_copy()
 {
   # copy file via rsync
   # to use: ibcopy "path/to/my/folder/or/file" "path/to/destination"
@@ -80,7 +84,7 @@ bbcopy()
   echo "$returnvar"
 }
 
-bbcompress()
+sl_compress()
 {
   # compress a folder and append datestamp
   # to use: ibcompress "path/to/my/folder" "outputfilename"
@@ -89,7 +93,7 @@ bbcompress()
   echo "$returnvar"
 }
 
-bbreplacetext()
+sl_replace_text()
 {
 
   # to update variables or strings using regex (awk) or tr or sed; useful for updating variables via script
@@ -99,7 +103,7 @@ bbreplacetext()
   echo "$returnvar"
 }
 
-bbcheckinstalled()
+sl_check_installed()
 {
   # check if application is installed
   # to use: ibcheckinstalled "applicationcommand"
@@ -111,7 +115,7 @@ bbcheckinstalled()
 # to use include . bash.parse.yaml.sh
 # https://gist.github.com/pkuczynski/8665367
 
-bbparseyaml() {
+sl_parse_yaml() {
   local prefix=$2
   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
   sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
