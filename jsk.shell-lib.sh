@@ -25,8 +25,7 @@
 
 # ----- functions
 
-_spinner()
-{
+_spinner() {
   # define a timestamp function
   local returnvar=''
 
@@ -45,6 +44,18 @@ _spinner()
   printf "    \b\b\b\b"
 
   echo "$returnvar"
+}
+
+_spinner2(){
+  PROC=$1
+  while [ -d "/proc/$PROC" ];do
+    echo -n '/^H' ; sleep 0.05
+    echo -n '-^H' ; sleep 0.05
+    echo -n '\^H' ; sleep 0.05
+    echo -n '|^H' ; sleep 0.05
+  done
+
+  return 0
 }
 
 _timestamp()
@@ -105,11 +116,11 @@ _replace_text()
 }
 
 _print_success () {
-  printf "\\n\\342\\234\\224  %s" "$1"
+  printf "\\n\\342\\234\\224  %s\\n" "$1"
 }
 
 _print_error () {
-  printf "\\n\\342\\234\\226  %s" "$1"
+  printf "\\n\\342\\234\\226  %s\\n" "$1"
 }
 
 _is_installed() {
@@ -118,6 +129,7 @@ _is_installed() {
   command -v "$1" >/dev/null 2>&1
 
   # ref : command -v "$1" >/dev/null 2>&1 || { echo >&2 "nginx not installed ... [abort]"; exit 1; }
+  # example : if _is_installed "myprogram"; then _print_success "found"; else _print_error "not found"; _die; fi
 }
 
 _is_macos() {
@@ -146,6 +158,7 @@ _file_exists() {
   else
     false # return false or 1 (1=false); i.e. num of errors > 0
   fi
+  # example : if _file_exists "myfile.txt"; then _print_success "found"; else _print_error "not found"; _die; fi
 }
 
 _directory_exists() {
@@ -196,4 +209,6 @@ _quit() { exit 0; }
 
 # exits the scripts whether run using bash command or using path
 #return 0 2> /dev/null || exit 0
+
+#_spinner2 "test"
 

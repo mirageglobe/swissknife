@@ -33,7 +33,7 @@ SHELLAPP
   author/site   jimmylim (mirageglobe@gmail.com) / www.mirageglobe.com
 
 usage:
-  ${app_basename} [command]
+  ${app_basename} [command] [<file>]
   ${app_basename} [--options] [<arguments>]
   ${app_basename} -h | --help
 
@@ -41,7 +41,7 @@ options:
   -h --help  Display this help information.
 
 examples:
-  ${app_basename} -y (to confirm launch script)
+  sh ${app_basename}
 
 HEREDOC
 }
