@@ -2,7 +2,7 @@
 
 # ----- shell library project information
 # author/site : jimmy mg lim (mirageglobe@gmail.com)
-# version     : v0.2.0
+# version     : v0.3.0
 # source      : https://github.com/mirageglobe/jsk
 
 # ----- instructions
@@ -24,6 +24,21 @@
 #   - exit code such as exit 0 or exit 1 in bash. 0 is successful exit, and 1 or more is failed exit
 
 # ----- functions
+
+_allow_os() {
+  # allows a set of operating systems, otherwise exits
+  # example _allow_os "Darwin Linux"
+  local rtn_val=1
+  local allowed_os_list=$1
+  local current_os="NIL"
+
+  if uname -s | grep -Fq 'Darwin'; then current_os='Darwin'; fi
+  if uname -s | grep -Fq 'Linux'; then current_os='Linux'; fi
+
+  if echo "$allowed_os_list" | grep -Fq "$current_os"; then rtn_val=0; fi
+
+  return $rtn_val
+}
 
 _spinner() {
   # define a timestamp function
