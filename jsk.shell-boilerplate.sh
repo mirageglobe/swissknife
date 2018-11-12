@@ -7,13 +7,14 @@
 #
 # ref https://google.github.io/styleguide/shell.xml#Naming_Conventions
 
+# building commandline with getopts
+#- use getopts for commandline building
+
 # ----- include constants
 
 # program base name or use $0
 app_basename=$(basename "${0}")
 app_argv1=$(basename "${1}")
-app_argv2=$(basename "${2}")
-
 
 # ----- include functions
 
