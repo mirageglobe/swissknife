@@ -54,7 +54,7 @@ _is_installed() {
 _is_macos() {
   rtn_val=1 #note rtn boolean for error codes is 0 = true / 1 = false (reversed with boolean statements)
 
-  if echo "$(uname -s)" | grep -Fq 'Darwin'; then
+  if uname -s | grep -Fq 'Darwin'; then
     rtn_val=0
   fi
 
@@ -64,7 +64,7 @@ _is_macos() {
 _is_linux() {
   rtn_val=1 #note rtn boolean for error codes is 0 = true / 1 = false (reversed with boolean statements)
 
-  if echo "$(uname -s)" | grep -Fq 'Linux'; then
+  if uname -s | grep -Fq 'Linux'; then
     rtn_val=0
   fi
 
@@ -93,66 +93,64 @@ _die() { _yell "$*"; exit 111; }
 _try() { "$@" || _die "cannot $*"; }
 _quit() { exit 0; }
 
-# ----- check arguments
 
-EXPECTED_ARGS=1
-E_BADARGS=65
+# ----- describe app
 
-if [ $# -ne $EXPECTED_ARGS ]; then
-  _print_help
-  exit $E_BADARGS
-fi
-
-# ----- check dependancies
-
-if _is_installed "avconv"; then _print_success "avconv/libav found"; else _print_error "avconv/libav not found - install via \$brew install libav"; _die; fi
-# package is libav on homebrew
-
-if _file_exists "something.txt"; then _print_success "found"; else _print_error "not found"; _die; fi
-# testing if file exists
-
-# ----- check expect
-
-# ----- main code
-
-app_os="NIL"
-app_cmd=$app_argv1
-
-# check OS
-if _is_macos; then
-  app_os="MAC"
-elif _is_linux; then
-  app_os="NIX"
-fi
-
-# default checks
-if [ "$app_os" != "NIL" ]; then
-  case "$app_cmd" in
-    help)
-      # list help
-      _print_help
-      ;;
-    mp3)
-      # your option for test here
-      echo "running \$ avconv -i test.webm test.mp3"
-      ;;
-    *)
-      _print_error "unexpected arguments/input"
-      _print_help
-      _die
-  esac
-fi
-
-# backup current image
+# - check os/dependancies
+# - check input
+# - backup file
+# - convert file
 
 #if [ -f "${IMAGEPNG}" ]; then
-
 #  echo "$DTTEXT backing up current image"
 #  cp -i "${IMAGEPNG}" "${IMAGENAME}_$DSTAMP.png"
 #  echo "$DTTEXT [ok]"
-
 #fi
 
-# complete
-_print_success "done ... [ok]"
+# ----- check arguments
+
+# one for command other for file input
+EXPECTED_ARGS=2
+E_BADARGS=65
+
+if [ $# -ne $EXPECTED_ARGS ]; then _print_help; exit $E_BADARGS; fi
+
+# ----- check os
+
+app_os="NIL"
+
+if _is_macos; then app_os="MAC";
+elif _is_linux; then app_os="NIX";
+fi
+
+if [ "$app_os" == "NIL" ]; then _die; fi
+
+# ----- check dependancies
+
+if _is_installed "avconv"; then _print_success "avconv/libav"; else _print_error "avconv/libav - install via \$brew install libav"; _die; fi
+# package is libav on homebrew
+
+if _file_exists "$app_argv2"; then _print_success "found"; else _print_error "not found"; _die; fi
+# testing if file exists
+
+# ----- main code
+
+app_cmd=$app_argv1
+
+# default checks
+case "$app_cmd" in
+  help)
+    # list help
+    _print_help
+    ;;
+  mp3)
+    # your option for test here
+    echo "running \$ avconv -i test.webm test.mp3"
+    _print_success "done ... [ok]"
+    ;;
+  *)
+    _print_error "unexpected arguments/input"
+    _print_help
+    _die
+esac
 
