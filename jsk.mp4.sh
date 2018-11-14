@@ -3,203 +3,148 @@
 # notes
 # use mp3 output only
 # reference
-# http://superuser.com/questions/134679/command-line-application-for-converting-svg-to-png-on-mac-os-x
+# - http://superuser.com/questions/134679/command-line-application-for-converting-svg-to-png-on-mac-os-x
+
+# ----- include constants
+
+# program base name or use $0
+app_basename=$(basename "${0}")
+app_argv1=$(basename "${1}")
+app_argv2=$(basename "${2}")
+
+# ----- extracted shell-lib.sh
+
+_print_help() {
+  # Usage: my_program [command] [--option] [<argument>]
+  # ref https://stackoverflow.com/questions/9725675/is-there-a-standard-format-for-command-line-shell-help-text
+  # ref http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html#tag_12_01
+
+  # Print the program help information.
+
+  cat <<HEREDOC
+
+SHELLAPP
+  this utility app prints/execute helper functions to manage this application
+
+  version       v0.1.0
+  author/site   jimmylim (mirageglobe@gmail.com) / www.mirageglobe.com
+
+usage:
+  ${app_basename} [options] [<file>]
+  ${app_basename} h | help
+
+options:
+  help          display this help information
+  mp4           convert video to mp4 using x264
+
+examples:
+  sh ${app_basename} help
+
+HEREDOC
+}
+
+_is_installed() {
+  # returns the path with true 0 or null 1
+  command -v "$1" >/dev/null 2>&1
+
+  # ref : command -v "$1" >/dev/null 2>&1 || { echo >&2 "nginx not installed ... [abort]"; exit 1; }
+  # example : if _is_installed "myprogram"; then _print_success "found"; else _print_error "not found"; fi
+}
+
+_is_macos() {
+  rtn_val=1 #note rtn boolean for error codes is 0 = true / 1 = false (reversed with boolean statements)
+
+  if uname -s | grep -Fq 'Darwin'; then
+    rtn_val=0
+  fi
+
+  return $rtn_val
+}
+
+_is_linux() {
+  rtn_val=1 #note rtn boolean for error codes is 0 = true / 1 = false (reversed with boolean statements)
+
+  if uname -s | grep -Fq 'Linux'; then
+    rtn_val=0
+  fi
+
+  return $rtn_val
+}
+
+_file_exists() {
+  if [ -f "$1" ]; then
+    true # return true or 0 (0=true); i.e num of errors = 0
+  else
+    false # return false or 1 (1=false); i.e. num of errors > 0
+  fi
+  # example : if _file_exists "myfile.txt"; then _print_success "found"; else _print_error "not found"; exit 1; fi
+}
+
+_print_success () {
+  printf "\\n\\342\\234\\224  %s\\n" "$1"
+}
+
+_print_error () {
+  printf "\\n\\342\\234\\226  %s\\n" "$1"
+}
+
+_yell() { echo "$0: $*" >&2; }
+_die() { _yell "$*"; exit 111; }
+_try() { "$@" || _die "cannot $*"; }
+_quit() { exit 0; }
 
 
-# to convert for android .... try gm convert "input.png" -resize 2481x3507 -bit-depth=32 "output.png"
-# ----- include libraries
+# ----- describe app
 
-# this code converts a png for web to 800x600 WxH at 72 dpi (if needed)
+# - check os/dependancies
+# - check input
+# - backup file
+# - convert file
 
-# ----- Check Arguments
+# ----- check arguments
 
+# one for command other for file input
 EXPECTED_ARGS=2
 E_BADARGS=65
 
-if [ "$#" -lt "$EXPECTED_ARGS" ]; then
-  echo "$DTTITLE script:"
-  echo "$DTTEXT this script converts with graphicsmagick and does postcompression. Dependancies: graphicsmagick(brew), pngquant(brew) or pngquant-bin(npm), optipng(brew) or optipng-bin(npm), svgexport(npm)"
-  echo "$DTTITLE usage:"
-  echo "$DTTEXT $0 [options] [arguments]"
-  echo "$DTTEXT $0 -g /path/to/image            : convert to grayscale"
-  echo "$DTTEXT $0 -w /path/to/image            : convert for (w)eb 800x600 WxH 72dpi png (webstandard)"
-  echo "$DTTEXT $0 -p /path/to/image            : convert for (p)rint 2481x3507 WxH (fullA4) 300dpi png (printstandard)"
-  echo "$DTTEXT $0 -l /path/to/image            : compress to (l)ossy based on pngquant"
-  echo "$DTTEXT $0 -s /path/to/image            : compress to lossles(s) based on optipng"
-  echo "$DTTEXT $0 -i /path/to/image            : (soon) generate icons including .ico .png appletouch win8tile"
-  echo "$DTTEXT $0 -o /path/to/image /new/file  : (soon) set output file"
-  echo "$DTTITLE examples:"
-  echo "$DTTEXT $0 -w /home/useraccount/myfirst/image.png"
-  echo "$DTTEXT $0 -wl /home/useraccount/myfirst/image.png"
-  echo "$DTTEXT $0 -ws /home/useraccount/myfirst/image.svg"
-  echo "$DTTITLE notes:"
-  echo "$DTTEXT options l and s are not interoperable"
-  echo "$DTTEXT options w and p are not interoperable"
+if [ $# -ne $EXPECTED_ARGS ]; then _print_help; exit $E_BADARGS; fi
 
-  exit $E_BADARGS
+# ----- check os
+
+app_os="NIL"
+
+if _is_macos; then app_os="MAC";
+elif _is_linux; then app_os="NIX";
 fi
 
-# ----- Define Variables
+if [ "$app_os" == "NIL" ]; then _die; fi
 
-GMOPTIONS=$1
-IMAGEFULL=$2
+# ----- check dependancies
 
-IMAGEEXT="${IMAGEFULL##*.}"
-IMAGENAME="${IMAGEFULL%.*}"
-IMAGEPNG="${IMAGENAME}.png"
+if _is_installed "avconv"; then _print_success "avconv/libav"; else _print_error "avconv/libav - install via \$brew install libav"; _die; fi
+# package is libav on homebrew
 
-DSTAMP=$(date +%y%m%d)
+if _file_exists "$app_argv2"; then _print_success "found"; else _print_error "not found"; _die; fi
+# testing if file exists
 
-# ----- Main Code
+# ----- main code
 
-echo "*** ----- "
-echo "*** Running : MakeGMpng"
-echo "*** ----- "
+app_cmd=$app_argv1
 
-# checks first char of string to be -
+# default checks
+case "$app_cmd" in
+  help)
+    # list help
+    _print_help
+    ;;
+  mp3)
+    # your option for test here
+    echo "running \$ avconv -i inputfile.mov -c:v libx264 outputfile.mp4"
+    _print_success "done ... [ok]"
+    ;;
+  *)
+    _print_error "unexpected arguments/input"
+    _print_help
+    _die
+esac
 
-echo "$DTTITLE validating options"
-if [[ ${GMOPTIONS::1} == "-" ]]; then
-  echo "$DTTEXT [ok]"
-else
-  echo "$DTTEXT options wrongly defined [abort]"
-  exit 1;
-fi
-
-# checking destination of file
-
-echo "$DTTEXT checking graphics file ${IMAGEFULL}"
-if [ ! -f "${IMAGEFULL}" ]; then
-  echo "$DTTEXT file not found [abort]"
-  exit 1
-else
-  echo "$DTTEXT [ok]"
-fi
-
-
-# auto convert svg to 2x
-
-if [[ "${IMAGEEXT}" == "svg" ]]; then
-
-  echo "$DTTEXT checking svgexport installation"
-  command -v gm >/dev/null 2>&1 || { echo "$ESST svgexport not installed [abort]" >&2; exit 1; }
-  echo "$DTTEXT [ok]"
-
-  echo "$DTTEXT export svg to png using svgexport"
-  svgexport ${IMAGEFULL} ${IMAGEPNG} png 100% "" 2x
-  echo "$DTTEXT [ok]"
-
-fi
-
-
-# backup current image
-
-if [ -f "${IMAGEPNG}" ]; then
-
-  echo "$DTTEXT backing up current image"
-  cp -i "${IMAGEPNG}" "${IMAGENAME}_$DSTAMP.png"
-  echo "$DTTEXT [ok]"
-
-fi
-
-
-# convert grayscale
-
-if [[ "${GMOPTIONS}" =~ "g" ]]; then
-
-  # checking application installation
-  echo "$DTTITLE convert to grayscale"
-
-  echo "$DTTEXT checking graphicsmagick installation"
-  command -v gm >/dev/null 2>&1 || { echo "$ESST graphicsmagick not installed [abort]" >&2; exit 1; }
-  echo "$DTTEXT [ok]"
-
-  # compressing image: may need to rescale to 300x300 dpi in option
-  echo "$DTTEXT grayify"
-  gm convert "${IMAGEPNG}" -type Grayscale -colorspace GRAY "${IMAGEPNG}"
-  echo "$DTTEXT [ok]"
-
-fi
-
-
-# convert for web 800x600 72dpi
-
-if [[ "${GMOPTIONS}" =~ "w" ]]; then
-
-  # checking application installation
-  echo "$DTTITLE convert and compress for (w)eb"
-
-  echo "$DTTEXT checking graphicsmagick installation"
-  command -v gm >/dev/null 2>&1 || { echo "$ESST graphicsmagick not installed [abort]" >&2; exit 1; }
-  echo "$DTTEXT [ok]"
-
-  # compressing image: may need to rescale to 300x300 dpi in option
-  echo "$DTTEXT resizing image"
-  gm convert "${IMAGEPNG}" -resize 800x600 -quality 95 "${IMAGEPNG}"
-  echo "$DTTEXT [ok]"
-
-fi
-
-
-# convert for print 2481x3507 300dpi WxH A4portrait
-
-if [[ "${GMOPTIONS}" =~ "p" ]]; then
-
-  # checking application installation
-  echo "$DTTITLE convert and compress for (p)rint"
-
-  echo "$DTTEXT checking graphicsmagick installation"
-  command -v gm >/dev/null 2>&1 || { echo "$ESST graphicsmagick not installed [abort]" >&2; exit 1; }
-  echo "$DTTEXT [ok]"
-
-  # compressing image: may need to rescale to 300x300 dpi in option
-  echo "$DTTEXT resizing image"
-  gm convert "${IMAGEPNG}" -resize 2481x3507 -quality 95 "${IMAGEPNG}"
-  echo "$DTTEXT [ok]"
-
-fi
-
-
-# lossy compression
-
-if [[ "${GMOPTIONS}" =~ "l" ]]; then
-
-  echo "$DTTEXT checking pngquant installation"
-  command -v pngquant >/dev/null 2>&1 || { echo "$ESST pngquant not installed [abort]" >&2; exit 1; }
-  echo "$DTTEXT [ok]"
-
-  echo "$DTTITLE compress using pngquant (lossy)"
-  pngquant --force "${IMAGEPNG}"
-  echo "$DTTEXT [ok]"
-
-  echo "$DTTEXT replacing output png with compressed version"
-  mv "${IMAGENAME}-fs8.png" "${IMAGEPNG}"
-  echo "$DTTEXT [ok]"
-
-fi
-
-
-# lossless compression
-
-if [[ "${GMOPTIONS}" =~ "s" ]]; then
-
-  echo "$DTTEXT checking optipng installation"
-  command -v optipng >/dev/null 2>&1 || { echo "$ESST optipng not installed [abort]" >&2; exit 1; }
-  echo "$DTTEXT [ok]"
-
-  echo "$DTTITLE compress using optipng (lossy)"
-  optipng "${IMAGEPNG}"
-  echo "$DTTEXT [ok]"
-
-fi
-
-if [[ "${GMOPTIONS}" =~ "i" ]]; then
-  echo "$DTTITLE converting tbc"
-fi
-
-if [[ "${GMOPTIONS}" =~ "o" ]]; then
-  echo "$DTTITLE converting tbc"
-fi
-
-# complete
-echo "$DTTITLE done ... [ok]"
