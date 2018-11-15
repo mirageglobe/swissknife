@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#/usr/bin/env bash
 
 # ----- shell library project information
 # author/site : jimmy mg lim (mirageglobe@gmail.com)

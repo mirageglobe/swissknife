@@ -1,7 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bats
 
-load jsk.shell-lib.sh
+source jsk.shell-lib.sh
 
+@test "_allow_os test os" {
+  result="$(echo uname -s | _allow_os)"
+  [ "$result" -eq 0 ]
+}
 
 # test _allow_os() 
 _allow_os() {
