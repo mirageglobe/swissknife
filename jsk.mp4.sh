@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # notes
-# use mp3 output only
+# use mp4 output only
 # reference
 # - http://superuser.com/questions/134679/command-line-application-for-converting-svg-to-png-on-mac-os-x
 
@@ -137,7 +137,7 @@ case "$app_cmd" in
     # list help
     _print_help
     ;;
-  mp3)
+  mp4)
     # your option for test here
     echo "running \$ avconv -i inputfile.mov -c:v libx264 outputfile.mp4"
     _print_success "done ... [ok]"
