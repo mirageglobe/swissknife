@@ -1,7 +1,7 @@
 
 # JSK (jimmys swissknife) #
 
-- author/site : Jimmy MG Lim (mirageglobe@gmail.com) / www.mirageglobe.com
+- maintainer : Jimmy MG Lim (mirageglobe@gmail.com) / www.mirageglobe.com
 - source : https://github.com/mirageglobe/jsk
 
 TLDR : An opinionated swissknife cli tool for conversions to mp3(music)/mp4(video)/pdf(document)/png(image) based to standard format(s)
