@@ -21,6 +21,9 @@ The rational for this is that there are various tools that are fully equipped to
 
 jsk.swapfile.sh configures cache pressure for prioritising inode and dentry information lookup. The rational for this is that defined memory, even in instances are finite and often an issue during memory bursts. A way around this, which has been a solution for sometime, is by creating a swapfile. This allows rarely used information to be moved and stored into this file. In the past, harddisks are slow thus swapfile memory performances are nowhere close to RAM. Nowadays, SSDs(solid state harddisks) perform much faster and thus swapfiles are quite reliable. Jimmys SwapFile basically configures this and creates a basic 1gb swapfile in the root directory of your instance.
 
+jcm (jimmys configuration manager) is a configuration management tool that focuses on compatibility and ease of use. jcm itself is a local configuration manager that "ensures" that either an application or file/folder MUST exist on the local machine. By default it will NOT remove applications or files/folders but you can use it to highlight anything that exists but should not be there. It reads a basic jcm file (json format) which specifies the intended state and ensures the target (which can be remote or local) corresponds to the jot file specification. It WILL automatically install missing applications and highlight ones that already exist." This is still beta mode so refrain from running in production before testing. The script itself is very simple and you should not find any trouble reading it. It is currently aimed for operating only on debian (and in some sense ubuntu).
+
+jdm (jimmys database ,anager) is a client cli tool that allows standard database management such as status, backup and deployments. it features these functionality for both local and remote machines (via using user, IP address and port (optional). key goals is to create a bare dependancy less tool that can be used to manage basic os machines such as debian.
 
 # To use #
 
@@ -33,8 +36,22 @@ $ sh jsk.[tool].sh
 to use swapfile swissknife,
 
 ```
-$ sh jsk.swapfile.sh                        # show help
-$ sh jsk.swapfile.sh deploy                 # launch deploy of 2gb swapfile
+$ sh jsk.swapfile.sh                  # show help
+$ sh jsk.swapfile.sh deploy           # launch deploy of 2gb swapfile
+```
+
+to use configuration management swissknife,
+
+```
+$ sh jcm.sh                           # show menu options
+$ sh jcm.sh plan                      # show what changes
+$ sh jcm.sh apply                     # deploy these options
+```
+
+to use database tool swissknife,
+
+```
+$ sh jdm.sh                           # database tool
 ```
 
 # Guidelines #
@@ -52,13 +69,91 @@ shellcheck treats local declarations as non POSIX, however local is widely used.
 let g:syntastic_sh_shellcheck_args="-e SC2039"
 ```
 
+jimmy configuration manager specific :
+
+there are different flavours of linux. the default command list is debian ubuntu. sorry, but thats life. good news is that you can still create yum or pacman or other flavours using raw prefix. raw.12.1.2 will run bourne shell scripts. a few points to note before submitting PR :
+
+* ensure this is tested on debian (as indicated in vagrantfile)
+* use json files "_comment": "" as comments
+
+- there are different flavours of linux. the default command list is must support debian ubuntu at minumum.
+- bourne shell script (POSIX defined) is used and not bash which is not compliant in all flavours of unix/linux. For bourne shell, if you have experience in bash scripting, it will be similar but have less features such as missing arrays. Rational for this is that ubuntu has moved to using dash as well as other distros using different flavors. Classic shell which is bourne shell (sh) scripts are POSIX standard and are by default accepted in all linux distros.
+
+jimmys database tool specific :
+
+a few points to note before submitting PR :
+
+- ensure this is tested on debian (as indicated in vagrantfile)
+
 # Roadmap #
 
 - video: consider mkv as container (http://www.iorgsoft.com/compare/mp4-vs-mkv-comparison.html / https://www.quora.com/How-do-you-choose-between-MP4-or-MKV-format)
 - video: use x264 for video compression
 - swapfile: multiple level user permissions check (running as sudo or root for swapfile init)
 
-# License #
+jimmy configuration manager
+
+* support raw folder for custom native shell scripts
+* use default.json, custom.json for input rules. any scroll can be created in camp folder http://stackoverflow.com/questions/2835559/parsing-values-from-a-json-file-in-python
+* check packages option to see a summary of what is installed.
+* add unit test (https://github.com/kward/shunit2)
+* add fail2ban in core scroll
+* add caffeine in linux
+* install to home directory and symlink commands
+* future tooling prototype for sub-scripting
+
+prototype example:
+
+```
+{
+  "scrollname" : "myfirstscroll",
+  "scrolldescription" : "this scroll does A B C."
+  "scrollscript" :
+  {
+    "command.1" : "",
+    "command.2" : "",
+  }
+}
+```
+
+jimmys database tool
+
+* check db backup file health
+* check db operation connection health
+* support mysql/mariadb
+* support couchdb
+* support mongodb
+* add unit test (https://github.com/kward/shunit2) or (https://github.com/bats-core/bats-core)
+* push and pull standard flat files (to support json or other flat file dbs)
+* install to commandline executable by user (/Users/usr/.jdm)
+* uninstall option which removes from bin
+* add to homebrew
+
+# References
+
+* http://www.shellhacks.com/en/Running-Commands-on-a-Remote-Linux-Server-over-SSH
+
+other notes for commands
+
+```
+Restart Apache {
+  sudo /usr/sbin/apachectl restart
+}
+```
+
+- http://graphemica.com
+- https://stackoverflow.com/questions/13777387/check-for-ip-validity
+- http://www.shellhacks.com/en/Running-Commands-on-a-Remote-Linux-Server-over-SSH
+- http://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_06
+
+```
+check for open ports {
+  nmap
+  netstat | grep
+}
+```
+
+# License
 
 Copyright 2012 Jimmy MG Lim (mirageglobe@gmail.com)
 
