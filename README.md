@@ -9,11 +9,17 @@ TLDR : An opinionated swissknife cli tool for conversions to mp3(music)/mp4(vide
 This project has updated to be simply : *jimmys swiss-knife (JSK)*. JSK is a commandline set of bash scripts that consists of the following:
 This project has been shifted to be simply named jimmys swapfile (JSF). JSF is a commandline application that does the following:
 
-* jsk.swapfile.sh - sets up a swapfile in most linux distros
-* jsk.mp3.sh - converts common sound/music formats to be of mp3 
-* jsk.mp4.sh - converts common video formats to be mp4 (not to be confused with mp4a which is mpeg 4 audio layer)
-* jsk.png.sh - converts common image formats to be optimised png (for the web/print)
-* jsk.pdf.sh - converts print compatible formatting such as image or documents to be converted to pdf
+* src/jsk-cm.sh - simple configuration manager
+* src/jsk-checkservice.sh - checks if sockets are running as services
+* src/jsk-checksftp.sh - checks if secure ftp is present
+* src/jsk-filenamer.sh - safe renames file to lowercase and hyphens (url compatible)
+* src/jsk-kvdb.sh - simple json db tool
+* src/jsk-mp3.sh - converts common sound/music formats to be of mp3 
+* src/jsk-mp4.sh - converts common video formats to be mp4 (not to be confused with mp4a which is mpeg 4 audio layer)
+* src/jsk-png.sh - converts common image formats to be optimised png (for the web/print)
+* src/jsk-pdf.sh - converts print compatible formatting such as image or documents to be converted to pdf
+* src/jsk-sqldb.sh - simple sql db backup and restore tool
+* src/jsk-swapfile.sh - sets up a swapfile in most linux distros
 
 The rational for this is that there are various tools that are fully equipped to do various fine grained optimisations however this comes as a cost for complexity. The goal of this project is to have an all in one tool that can optimise all three of the filetypes and focus on one/two commmon outputs that is suffice for general use. The trade of is simplicity vs functionality coverage, where this tool focuses on specifically on simplicity and core tooling.
 
@@ -30,28 +36,28 @@ jdm (jimmys database ,anager) is a client cli tool that allows standard database
 to run and see options/help,
 
 ```
-$ sh jsk.[tool].sh
+$ sh jsk-[tool].sh
 ```
 
 to use swapfile swissknife,
 
 ```
-$ sh jsk.swapfile.sh                  # show help
-$ sh jsk.swapfile.sh deploy           # launch deploy of 2gb swapfile
+$ sh jsk-swapfile.sh                  # show help
+$ sh jsk-swapfile.sh apply            # launch deploy of 2gb swapfile
 ```
 
 to use configuration management swissknife,
 
 ```
-$ sh jcm.sh                           # show menu options
-$ sh jcm.sh plan                      # show what changes
-$ sh jcm.sh apply                     # deploy these options
+$ sh jsk-cm.sh                        # show menu options
+$ sh jsk-cm.sh plan                   # show what changes
+$ sh jsk-cm.sh apply                  # deploy these options
 ```
 
 to use database tool swissknife,
 
 ```
-$ sh jdm.sh                           # database tool
+$ sh jsk-sqldb.sh                     # sql database backup and restore tool
 ```
 
 # Guidelines #
