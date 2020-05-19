@@ -1,14 +1,14 @@
 
-# JSK (jimmys swissknife) #
+# jsk (jimmys swissknife)
 
 - maintainer : Jimmy MG Lim (mirageglobe@gmail.com) / www.mirageglobe.com
 - source : https://github.com/mirageglobe/jsk
 
-TLDR : An opinionated swissknife cli tool for conversions to mp3(music)/mp4(video)/pdf(document)/png(image) based to standard format(s)
+tldr : an opinionated swissknife cli tool for conversions to mp3(music)/mp4(video)/pdf(document)/png(image) based to standard format(s)
 
-This project has updated to be simply : *jimmys swiss-knife (JSK)*. JSK is a commandline set of bash scripts that consists of the following:
-This project has been shifted to be simply named jimmys swapfile (JSF). JSF is a commandline application that does the following:
+this project has updated to be simply : *jimmys swiss-knife (jsk)*. jsk is a commandline set of bash scripts that consists of the following:
 
+* src/jsk-bashlib.sh - simple bash library helper functions for building bash apps
 * src/jsk-cm.sh - simple configuration manager
 * src/jsk-checkservice.sh - checks if sockets are running as services
 * src/jsk-checksftp.sh - checks if secure ftp is present
@@ -21,46 +21,48 @@ This project has been shifted to be simply named jimmys swapfile (JSF). JSF is a
 * src/jsk-sqldb.sh - simple sql db backup and restore tool
 * src/jsk-swapfile.sh - sets up a swapfile in most linux distros
 
-The rational for this is that there are various tools that are fully equipped to do various fine grained optimisations however this comes as a cost for complexity. The goal of this project is to have an all in one tool that can optimise all three of the filetypes and focus on one/two commmon outputs that is suffice for general use. The trade of is simplicity vs functionality coverage, where this tool focuses on specifically on simplicity and core tooling.
+the rational for this is that there are many tools that are fully equipped to do various fine grained optimisations; however this comes as a cost for complexity. the goal of this project is to have an all in one tool that can simple provide simple use cases to do tasks such as optimise filetypes and focus on one/two common outputs that is suffice for general use. the trade of is simplicity vs functionality coverage, where this tool focuses on specifically on simplicity and core tooling.
 
-# Package information
+# package information
 
-jsk.swapfile.sh configures cache pressure for prioritising inode and dentry information lookup. The rational for this is that defined memory, even in instances are finite and often an issue during memory bursts. A way around this, which has been a solution for sometime, is by creating a swapfile. This allows rarely used information to be moved and stored into this file. In the past, harddisks are slow thus swapfile memory performances are nowhere close to RAM. Nowadays, SSDs(solid state harddisks) perform much faster and thus swapfiles are quite reliable. Jimmys SwapFile basically configures this and creates a basic 1gb swapfile in the root directory of your instance.
+there are a number of growing tools that are in "/src" folder. the following is a brief on more useful tools available in this swissknife toolbox.
 
-jcm (jimmys configuration manager) is a configuration management tool that focuses on compatibility and ease of use. jcm itself is a local configuration manager that "ensures" that either an application or file/folder MUST exist on the local machine. By default it will NOT remove applications or files/folders but you can use it to highlight anything that exists but should not be there. It reads a basic jcm file (json format) which specifies the intended state and ensures the target (which can be remote or local) corresponds to the jot file specification. It WILL automatically install missing applications and highlight ones that already exist." This is still beta mode so refrain from running in production before testing. The script itself is very simple and you should not find any trouble reading it. It is currently aimed for operating only on debian (and in some sense ubuntu).
+jsk-swapfile.sh configures cache pressure for prioritising inode and dentry information lookup. the rational for this is that defined memory, even in instances are finite and often an issue during memory bursts. a way around this, which has been a solution for sometime, is by creating a swapfile. this allows rarely used information to be moved and stored into this file. in the past, harddisks are slow thus swapfile memory performances are nowhere close to ram. nowadays, ssds(solid state harddisks) perform much faster and thus swapfiles are quite reliable. jimmys swapfile basically configures this and creates a basic 1gb swapfile in the root directory of your instance.
 
-jdm (jimmys database ,anager) is a client cli tool that allows standard database management such as status, backup and deployments. it features these functionality for both local and remote machines (via using user, IP address and port (optional). key goals is to create a bare dependancy less tool that can be used to manage basic os machines such as debian.
+jsk-cm.sh (jimmys configuration manager tool) is a configuration management tool that focuses on compatibility and ease of use. jsk-cm itself is a local configuration manager that "ensures" that either an application or file/folder must exist on the local machine. by default it will not remove applications or files/folders but you can use it to highlight anything that exists but should not be there. it reads a basic jsk-cm file (json format) which specifies the intended state and ensures the target (which can be remote or local) corresponds to the jot file specification. it will automatically install missing applications and highlight ones that already exist." this is still beta mode so refrain from running in production before testing. the script itself is very simple and you should not find any trouble reading it. it is currently aimed for operating only on debian (and in some sense ubuntu).
 
-# To use #
+jsk-sqldb (jimmys sql database tool) is a client cli tool that allows standard database management such as status, backup and deployments. it features these functionality for both local and remote machines (via using user, IP address and port (optional). key goals is to create a bare dependancy less tool that can be used to manage basic os machines such as debian.
+
+# to use
 
 to run and see options/help,
 
 ```
-$ sh jsk-[tool].sh
+$ sh src/jsk-[tool].sh
 ```
 
 to use swapfile swissknife,
 
 ```
-$ sh jsk-swapfile.sh                  # show help
-$ sh jsk-swapfile.sh apply            # launch deploy of 2gb swapfile
+$ sh src/jsk-swapfile.sh                  # show help
+$ sh src/jsk-swapfile.sh apply            # launch deploy of 2gb swapfile
 ```
 
 to use configuration management swissknife,
 
 ```
-$ sh jsk-cm.sh                        # show menu options
-$ sh jsk-cm.sh plan                   # show what changes
-$ sh jsk-cm.sh apply                  # deploy these options
+$ sh src/jsk-cm.sh                        # show menu options
+$ sh src/jsk-cm.sh plan                   # show what changes
+$ sh src/jsk-cm.sh apply                  # deploy these options
 ```
 
 to use database tool swissknife,
 
 ```
-$ sh jsk-sqldb.sh                     # sql database backup and restore tool
+$ sh src/jsk-sqldb.sh                     # sql database backup and restore tool
 ```
 
-# Guidelines #
+# guidelines
 
 a few points to note before submitting PR :
 
@@ -159,7 +161,7 @@ check for open ports {
 }
 ```
 
-# License
+# license
 
 Copyright 2012 Jimmy MG Lim (mirageglobe@gmail.com)
 
