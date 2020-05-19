@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 # ----- shell library project information
 # author/site : jimmy mg lim (mirageglobe@gmail.com)
@@ -9,12 +9,12 @@
 # usage:
 #   # either copy and paste the function or add to source in the header of your project
 #
-#   source "./jsk.shell-lib.sh"
+#   source "./jsk-bashlib.sh"
 #
 #   # if config file exists, use the variables.
 #
-#   if [ -f jsk.shell-lib.sh ]; then
-#     source jsk.shell-lib.sh
+#   if [ -f ./jsk-bashlib.sh ]; then
+#     source ./jsk-bashlib.sh
 #   fi
 #
 # limitations:

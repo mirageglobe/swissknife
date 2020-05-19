@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-source jsk.shell-lib.sh
+source ../src/jsk-bashlib.sh
 
 @test "_allow_os test os" {
   result="$(echo uname -s | _allow_os)"
