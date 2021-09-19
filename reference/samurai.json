@@ -1,8 +1,0 @@
-{
-  "scrollname" : "myfirstscroll",
-  "scrolldescription" : "this scroll does A B C."
-  "scrollscript" : {
-    "command.1" : "",
-    "command.2" : ""
-  }
-}

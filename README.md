@@ -4,12 +4,12 @@
 - maintainer : Jimmy MG Lim (mirageglobe@gmail.com) / www.mirageglobe.com
 - source : https://github.com/mirageglobe/jsk
 
-tldr : an opinionated swissknife cli tool for conversions to mp3(music)/mp4(video)/pdf(document)/png(image) based to standard format(s)
+tldr : an opinionated collection of scripts to standardise conversions such as mp3(music) / mp4(video) / pdf(document) / png(image)
 
-this project has updated to be simply : *jimmys swiss-knife (jsk)*. jsk is a commandline set of bash scripts that consists of the following:
+this project has updated to be simply : *jimmys swiss-knife (jsk)*. jsk is a commandline set of scripts that consists of the following:
 
 * src/jsk-bashlib.sh - simple bash library helper functions for building bash apps
-* src/jsk-cm.sh - simple configuration manager
+* src/jsk-configuration-manager.sh - simple configuration manager
 * src/jsk-checkservice.sh - checks if sockets are running as services
 * src/jsk-checksftp.sh - checks if secure ftp is present
 * src/jsk-filenamer.sh - safe renames file to lowercase and hyphens (url compatible)
@@ -25,8 +25,6 @@ the rational for this is that there are many tools that are fully equipped to do
 
 # package information
 
-there are a number of growing tools that are in "/src" folder. the following is a brief on more useful tools available in this swissknife toolbox.
-
 jsk-swapfile.sh configures cache pressure for prioritising inode and dentry information lookup. the rational for this is that defined memory, even in instances are finite and often an issue during memory bursts. a way around this, which has been a solution for sometime, is by creating a swapfile. this allows rarely used information to be moved and stored into this file. in the past, harddisks are slow thus swapfile memory performances are nowhere close to ram. nowadays, ssds(solid state harddisks) perform much faster and thus swapfiles are quite reliable. jimmys swapfile basically configures this and creates a basic 1gb swapfile in the root directory of your instance.
 
 jsk-cm.sh (jimmys configuration manager tool) is a configuration management tool that focuses on compatibility and ease of use. jsk-cm itself is a local configuration manager that "ensures" that either an application or file/folder must exist on the local machine. by default it will not remove applications or files/folders but you can use it to highlight anything that exists but should not be there. it reads a basic jsk-cm file (json format) which specifies the intended state and ensures the target (which can be remote or local) corresponds to the jot file specification. it will automatically install missing applications and highlight ones that already exist." this is still beta mode so refrain from running in production before testing. the script itself is very simple and you should not find any trouble reading it. it is currently aimed for operating only on debian (and in some sense ubuntu).
@@ -38,7 +36,7 @@ jsk-sqldb (jimmys sql database tool) is a client cli tool that allows standard d
 to run and see options/help,
 
 ```
-$ sh src/jsk-[tool].sh
+$ sh jsk-<tool name>.sh
 ```
 
 to use swapfile swissknife,
@@ -46,14 +44,6 @@ to use swapfile swissknife,
 ```
 $ sh src/jsk-swapfile.sh                  # show help
 $ sh src/jsk-swapfile.sh apply            # launch deploy of 2gb swapfile
-```
-
-to use configuration management swissknife,
-
-```
-$ sh src/jsk-cm.sh                        # show menu options
-$ sh src/jsk-cm.sh plan                   # show what changes
-$ sh src/jsk-cm.sh apply                  # deploy these options
 ```
 
 to use database tool swissknife,
@@ -93,7 +83,7 @@ a few points to note before submitting PR :
 
 - ensure this is tested on debian (as indicated in vagrantfile)
 
-# Roadmap #
+# roadmap
 
 - video: consider mkv as container (http://www.iorgsoft.com/compare/mp4-vs-mkv-comparison.html / https://www.quora.com/How-do-you-choose-between-MP4-or-MKV-format)
 - video: use x264 for video compression
@@ -137,7 +127,27 @@ jimmys database tool
 * uninstall option which removes from bin
 * add to homebrew
 
-# References
+# references
+
+when adding shell(sh/bash) commands, you can chain commands with four ways:
+
+```
+; = run regardless
+&& = run if previous succeed
+|| = run if previous fail
+& run in background
+```
+
+when returning error codes refer to http://tldp.org/LDP/abs/html/exitcodes.html
+
+- 1 = catchall for general errors
+- 2 = misuse of shell builtins
+- 126 = command invoked cannot execute
+- 127 = command not found
+- 128 = invalid argument to exit
+- 128+n = fatal error signal "n"
+- 130 = script terminated by control-c
+- 255 = exit status out of range
 
 * http://www.shellhacks.com/en/Running-Commands-on-a-Remote-Linux-Server-over-SSH
 
