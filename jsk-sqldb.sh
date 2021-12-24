@@ -1,7 +1,9 @@
 #!/bin/sh
 
-# Author Jimmy MG Lim <mirageglobe@gmail.com>
-# Website www.mirageglobe.com
+# ====================================================== project information ===
+
+# author/site : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/jsk
 
 # ----- include libraries
 

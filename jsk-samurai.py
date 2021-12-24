@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 
-import os, platform, sys, socket
+import os
+import platform
+import socket
+import sys
 
 samuraimap = {}
 
 # ===============================
-# Functions
+# functions
 # ===============================
 
 def loadoptions(ninja=False,showcmd=False):
   print("==================================")
-  print("Samurai for Mac")
-  print("Modes: Ninja={0},".format(ninja), "ShowCMD={0}".format(showcmd))
-  print("System:","{0}".format(platform.system()),"({0})".format(platform.release()))
+  print("samurai for mac")
+  print("modes: ninja={0},".format(ninja), "showcmd={0}".format(showcmd))
+  print("system:","{0}".format(platform.system()),"({0})".format(platform.release()))
   print("==================================")
 
   for key, value in sorted(samuraimap.items()):
@@ -31,7 +34,7 @@ def runcommand(cmdstring):
 if __name__ == "__main__":
 
   # ===============================
-  # Checks for system
+  # checks for system
   # ===============================
 
   if platform.system() != 'Darwin':
@@ -39,26 +42,26 @@ if __name__ == "__main__":
     sys.exit(1)
 
   # ===============================
-  # Setting arguments
+  # setting arguments
   # ===============================
 
   ninja_active = False
   showcmd_active = False
 
-  # Adding ninja mode here - ninja mode activated within menu
-  # In ninja mode, the commands are not executed; until the end. if you run ninja, it will create a scroll.sh with bash commands which can be used with vagrant
+  # adding ninja mode here - ninja mode activated within menu
+  # in ninja mode, the commands are not executed; until the end. if you run ninja, it will create a scroll.sh with bash commands which can be used with vagrant
   # export DEBIAN_FRONTEND=noninteractive
   # apt-get -y install package1 package2
 
   # ===============================
-  # Default load of system
+  # default load of system
   # ===============================
 
   avatar = "[samurai]"
   gloop = True
 
   # ===============================
-  # Entering loop of samurai
+  # entering loop of samurai
   # ===============================
 
   runcommand("clear")
