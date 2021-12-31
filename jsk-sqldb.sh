@@ -1,10 +1,23 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # ====================================================== project information ===
 
 # author      : jimmy mg lim (mirageglobe@gmail.com)
 # source      : https://github.com/mirageglobe/swissknife
 # version     : 0.1.0
+
+# --------------------------------------------------------------------- todo ---
+
+# - check db backup file health
+# - check db operation connection health
+# - support mysql/mariadb
+# - support couchdb
+# - support mongodb
+# - add unit test (https://github.com/kward/shunit2) or (https://github.com/bats-core/bats-core)
+# - push and pull standard flat files (to support json or other flat file dbs)
+# - install to commandline executable by user (/Users/usr/.jdm)
+# - uninstall option which removes from bin
+# - add to homebrew
 
 # --------------------------------------------------------------------- main ---
 
@@ -24,8 +37,8 @@ MG_ARG2=$2
 export VERSION_NO="0.1.0"
 export DEFAULT_PASS="defaultpass"
 
-#an interactive password updater will run at the end to change this password to one of your choice
-#you should change this to one of your own passwords; i recommend using keepassX to generate at least 128bit unique passwords without odd non alphanumberic words; also use lower caps to ensure ease of typing in.
+# an interactive password updater will run at the end to change this password to one of your choice
+# you should change this to one of your own passwords; i recommend using keepassX to generate at least 128bit unique passwords without odd non alphanumberic words; also use lower caps to ensure ease of typing in.
 
 # ----- common functions
 
