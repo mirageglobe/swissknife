@@ -14,7 +14,7 @@
 # installs samurai into /usr/local/bin
 # files: samurai / samurai-mac.py / samurai-linux.py
 
-readonly SUDO_REQUIRED=false
+readonly SUDO_REQUIRED=true
 
 if [[ $SUDO_REQUIRED ]]; then
   if [[ $(id -u) != 0 ]]; then
