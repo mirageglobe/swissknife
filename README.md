@@ -78,7 +78,6 @@ jsk-cm.sh (jimmys configuration manager tool) is a configuration management tool
 a few points to note before submitting PR :
 
 - ensure that this is tested on debian (as provided in vagrantfile)
-- for json files, use "_comment": "" as comments
 
 ## shellcheck
 
@@ -90,7 +89,7 @@ brew install shellcheck
 
 shellcheck treats local declarations as non POSIX, however local is widely used. enable using by added in your vimrc
 
-```
+```vim
 " using syntastic
 " allow the use of 'local'
 let g:syntastic_sh_shellcheck_args="-e SC2039"
@@ -98,17 +97,18 @@ let g:syntastic_sh_shellcheck_args="-e SC2039"
 
 # roadmap
 
+each script will have a list of todos and roadmap. general roadmap for swissknife:
+
 - video: consider mkv as container (http://www.iorgsoft.com/compare/mp4-vs-mkv-comparison.html / https://www.quora.com/How-do-you-choose-between-MP4-or-MKV-format)
 - video: use x264 for video compression
 - swapfile: multiple level user permissions check (running as sudo or root for swapfile init)
 
 # references
 
-- http://www.shellhacks.com/en/Running-Commands-on-a-Remote-Linux-Server-over-SSH
-- [http://graphemica.com]
 - https://stackoverflow.com/questions/13777387/check-for-ip-validity
-- http://www.shellhacks.com/en/Running-Commands-on-a-Remote-Linux-Server-over-SSH
 - http://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_06
+- http://www.shellhacks.com/en/Running-Commands-on-a-Remote-Linux-Server-over-SSH
+- http://graphemica.com
 
 when adding shell(sh/bash) commands, you can chain commands with four ways:
 
@@ -130,7 +130,15 @@ when returning error codes refer to http://tldp.org/LDP/abs/html/exitcodes.html
 - 130 = script terminated by control-c
 - 255 = exit status out of range
 
-other notes for commands
+when commenting in json files
+
+```json
+{
+  "_comment": "this is an example comment"
+}
+```
+
+other useful bash commands
 
 ```
 restart_apache {
@@ -145,6 +153,7 @@ check_for_open_ports {
 
 # license
 
+```txt
 Copyright 2012 Jimmy MG Lim (mirageglobe@gmail.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -160,3 +169,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 License Breakdown: https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)
+```
