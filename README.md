@@ -1,8 +1,8 @@
 
 # swissknife jsk (jimmys swissknife)
 
-- maintainer : jimmy mg lim (mirageglobe@gmail.com) / www.mirageglobe.com
-- source : https://github.com/mirageglobe/swissknife
+- maintainer : jimmy mg lim <mirageglobe@gmail.com> / <https://www.mirageglobe.com>
+- source : <https://github.com/mirageglobe/swissknife>
 
 tldr : an opinionated collection of scripts and tools to help standardise conversions such as ( mp3(music) / mp4(video) / pdf(document) / png(image) ) and general cli tooling to save time
 
@@ -99,16 +99,16 @@ let g:syntastic_sh_shellcheck_args="-e SC2039"
 
 each script will have a list of todos and roadmap. general roadmap for swissknife:
 
-- video: consider mkv as container (http://www.iorgsoft.com/compare/mp4-vs-mkv-comparison.html / https://www.quora.com/How-do-you-choose-between-MP4-or-MKV-format)
+- video: consider mkv as container <http://www.iorgsoft.com/compare/mp4-vs-mkv-comparison.html> / <https://www.quora.com/How-do-you-choose-between-MP4-or-MKV-format>
 - video: use x264 for video compression
 - swapfile: multiple level user permissions check (running as sudo or root for swapfile init)
 
 # references
 
-- https://stackoverflow.com/questions/13777387/check-for-ip-validity
-- http://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_06
-- http://www.shellhacks.com/en/Running-Commands-on-a-Remote-Linux-Server-over-SSH
-- http://graphemica.com
+- <https://stackoverflow.com/questions/13777387/check-for-ip-validity>
+- <http://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_06>
+- <http://www.shellhacks.com/en/Running-Commands-on-a-Remote-Linux-Server-over-SSH>
+- <http://graphemica.com>
 
 when adding shell(sh/bash) commands, you can chain commands with four ways:
 
@@ -119,16 +119,18 @@ when adding shell(sh/bash) commands, you can chain commands with four ways:
 # & run in background
 ```
 
-when returning error codes refer to http://tldp.org/LDP/abs/html/exitcodes.html
+when returning error codes refer to <http://tldp.org/LDP/abs/html/exitcodes.html>
 
-- 1 = catchall for general errors
-- 2 = misuse of shell builtins
-- 126 = command invoked cannot execute
-- 127 = command not found
-- 128 = invalid argument to exit
-- 128+n = fatal error signal "n"
-- 130 = script terminated by control-c
-- 255 = exit status out of range
+```text
+1             catchall for general errors
+2             misuse of shell builtins
+126           command invoked cannot execute
+127           command not found
+128           invalid argument to exit
+128+n         fatal error signal "n"
+130           script terminated by control-c
+255           exit status out of range
+```
 
 when commenting in json files
 
@@ -140,7 +142,7 @@ when commenting in json files
 
 other useful bash commands
 
-```
+```bash
 restart_apache {
   sudo /usr/sbin/apachectl restart
 }
@@ -153,7 +155,7 @@ check_for_open_ports {
 
 # license
 
-```txt
+```text
 Copyright 2012 Jimmy MG Lim (mirageglobe@gmail.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
