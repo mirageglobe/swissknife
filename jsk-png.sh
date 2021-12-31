@@ -1,14 +1,22 @@
 #!/usr/bin/env bash
 
-# notes
+# ====================================================== project information ===
+
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 0.1.0
+
+# --------------------------------------------------------------- references ---
+
+# - http://superuser.com/questions/134679/command-line-application-for-converting-svg-to-png-on-mac-os-x
+
+# --------------------------------------------------------------------- main ---
+
 # use pngquant for web (lossy)
 # use optipng for print (lossless)
 # use http://phantomjs.org/screen-capture.html to print to pdf or png from svg
 # use convert -d 300 foo.pdf bar.png for higher ppi(dpi) - http://askubuntu.com/questions/50170/how-to-convert-pdf-to-image
 # use ls *.jpg|while read i;do gm convert $i -resize "900x" -unsharp 2x0.5+0.5+0 -quality 98 `basename $i .jpg`_s.jpg;done
-# reference
-# http://superuser.com/questions/134679/command-line-application-for-converting-svg-to-png-on-mac-os-x
-
 
 # to convert for android .... try gm convert "input.png" -resize 2481x3507 -bit-depth=32 "output.png"
 # ----- include libraries

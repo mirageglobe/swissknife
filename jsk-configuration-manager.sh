@@ -1,9 +1,12 @@
 #!/usr/bin/env sh
 
-# Author Jimmy MG Lim <mirageglobe@gmail.com>
-# Website www.mirageglobe.com
+# ====================================================== project information ===
 
-# ----- include libraries
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 0.1.0
+
+# --------------------------------------------------------------------- main ---
 
 # ----- common functions
 

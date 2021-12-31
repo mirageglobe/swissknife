@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
 
-# Author: Jimmy MG Lim <mirageglobe@gmail.com>
-# Version: 1.0.3
+# ====================================================== project information ===
 
-# Run this script to generate a 2GB swap file
-# To revert this script
-# (1) delete "/swapfile  none  swap  sw  0  0 line" from  /etc/fstab
-# (2) delete "vm.swappiness=10" from /etc/sysctl.conf
-# (3) delete "vm.vfs_cache_pressure=50" from /etc/sysctl.conf
-# (4) delete /swapfile
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 1.0.4
 
-# TODO:
-# - check OS
-# - check if swapon no response
-# - check
+# --------------------------------------------------------------- references ---
 
-# References:
 # - update swap file -> https://help.ubuntu.com/community/SwapFaq
 # - make swap reference https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04
 
-# ----- Check Arguments
+# --------------------------------------------------------------------- todo ---
+
+# - check os
+# - check if swapon no response
+
+# --------------------------------------------------------------------- main ---
+
+# run this script to generate a 2gb swap file
+#
+# to revert
+# - delete "/swapfile  none  swap  sw  0  0 line" from `/etc/fstab`
+# - delete "vm.swappiness=10" from `/etc/sysctl.conf`
+# - delete "vm.vfs_cache_pressure=50" from `/etc/sysctl.conf`
+# - delete `/swapfile`
+
+# ----- check arguments
 
 EXPECTED_ARGS=1
 E_BADARGS=0
@@ -43,8 +50,6 @@ if [ "$#" -lt "$EXPECTED_ARGS" ]; then
 
   exit $E_BADARGS
 fi
-
-# ----- Main Code
 
 echo "$DTTITLE adding virtual memory"
 
@@ -83,4 +88,3 @@ if [ "$1" == "deploy" ]; then
 
   echo "$DTTEXT deployment complete. please reboot now if necessary. use sudo swapon -s or free -m"
 fi
-

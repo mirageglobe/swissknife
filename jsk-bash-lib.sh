@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# ======================================== shell library project information ===
+# ====================================================== project information ===
 
-# author/site : jimmy mg lim (mirageglobe@gmail.com)
-# version     : v0.3.0
-# source      : https://github.com/mirageglobe/jsk
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 0.3.1
 
 # ---------------------------------------------------------------- reference ---
 

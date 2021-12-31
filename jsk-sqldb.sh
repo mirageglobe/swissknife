@@ -2,8 +2,11 @@
 
 # ====================================================== project information ===
 
-# author/site : jimmy mg lim (mirageglobe@gmail.com)
-# source      : https://github.com/mirageglobe/jsk
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 0.1.0
+
+# --------------------------------------------------------------------- main ---
 
 # ----- include libraries
 

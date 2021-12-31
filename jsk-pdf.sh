@@ -1,17 +1,22 @@
 #!/usr/bin/env bash
 
-# notes
-# use mp3 output only
-# reference
-# http://superuser.com/questions/134679/command-line-application-for-converting-svg-to-png-on-mac-os-x
+# ====================================================== project information ===
 
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 0.1.0
 
-# to convert for android .... try gm convert "input.png" -resize 2481x3507 -bit-depth=32 "output.png"
+# --------------------------------------------------------------- references ---
+
+# - http://superuser.com/questions/134679/command-line-application-for-converting-svg-to-png-on-mac-os-x
+
+# --------------------------------------------------------------------- main ---
+
+# use pdf output only
+
 # ----- include libraries
 
-# this code converts a png for web to 800x600 WxH at 72 dpi (if needed)
-
-# ----- Check Arguments
+# ----- check arguments
 
 EXPECTED_ARGS=2
 E_BADARGS=65

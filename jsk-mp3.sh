@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
-# notes
-# use mp3 output only
-# reference
+# ====================================================== project information ===
+
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 0.1.0
+
+# --------------------------------------------------------------- references ---
+
 # - http://superuser.com/questions/134679/command-line-application-for-converting-svg-to-png-on-mac-os-x
+
+# --------------------------------------------------------------------- main ---
+
+# use mp3 output only
 
 # ----- include constants
 

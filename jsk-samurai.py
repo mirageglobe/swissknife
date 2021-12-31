@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+# ====================================================== project information ===
+
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 1.0.0
+
+# --------------------------------------------------------------- references ---
+
 import os
 import platform
 import socket
@@ -7,9 +15,7 @@ import sys
 
 samuraimap = {}
 
-# ===============================
-# functions
-# ===============================
+# ---------------------------------------------------------------- functions ---
 
 def loadoptions(ninja=False,showcmd=False):
   print("==================================")
@@ -27,9 +33,7 @@ def loadoptions(ninja=False,showcmd=False):
 def runcommand(cmdstring):
   return_value = os.system(cmdstring)
 
-# ===============================
-# Main Code
-# ===============================
+# --------------------------------------------------------------------- main ---
 
 if __name__ == "__main__":
 
@@ -81,14 +85,16 @@ if __name__ == "__main__":
       break
 
     if gchoice == 3:
-      showcmd_active = not showcmd_active       # toggle showcmd mode
+      showcmd_active = not showcmd_active
+      # toggle showcmd mode
 
     if gchoice in samuraimap:
       runcommand(samuraimap[gchoice]['cmd'])
       if not samuraimap[gchoice]['responsesuccess']:
         print("{0}".format(avatar), samuraimap[gchoice]['responsesuccess'])
     else:
-      print("{0} Command is does not exist. Please enter number.".format(avatar))       #load the options again. does not work if placed in above array
+      print("{0} Command is does not exist. Please enter number.".format(avatar))
+      # load the options again. does not work if placed in above array
 
-    input("Enter to continue")
+    input("enter to continue")
     runcommand("clear")

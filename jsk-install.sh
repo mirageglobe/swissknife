@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# ====================================================== project information ===
+
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 0.1.0
+
+# --------------------------------------------------------------------- main ---
+
 # Installs samurai into /usr/local/bin
 # Files: samurai / samurai-mac.py / samurai-linux.py
 
