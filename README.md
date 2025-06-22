@@ -103,6 +103,15 @@ each script will have a list of todos and roadmap. general roadmap for swissknif
 - video: use x264 for video compression
 - swapfile: multiple level user permissions check (running as sudo or root for swapfile init)
 
+# contributing
+
+- pull requests are welcome
+
+```
+# scan directory for vulnerabilities and secrets
+  trivy fs --scanners vuln,secret,config .
+```
+
 # references
 
 - <https://stackoverflow.com/questions/13777387/check-for-ip-validity>
