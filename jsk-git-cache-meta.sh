@@ -1,4 +1,12 @@
-#!/bin/sh -e
+#!/usr/bin/env bash
+
+# ====================================================== project information ===
+
+# author      : jimmy mg lim (mirageglobe@gmail.com)
+# source      : https://github.com/mirageglobe/swissknife
+# version     : 0.1.0
+
+# ---------------------------------------------------------------- reference ---
 
 # git-cache-meta -- simple file meta data caching and applying.
 # simpler than etckeeper, metastore, setgitperms, etc.
@@ -6,8 +14,9 @@
 # modified by n1k
 # - save all files metadata not only from other users
 # - save numeric uid and gid
-
 # 2012-03-05 - added filetime, andris9
+
+# --------------------------------------------------------------------- main ---
 
 : ${GIT_CACHE_META_FILE=.git_cache_meta}
 case $@ in

@@ -6,7 +6,7 @@
 # source      : https://github.com/mirageglobe/swissknife
 # version     : 0.1.0
 
-# --------------------------------------------------------------- references ---
+# ---------------------------------------------------------------- reference ---
 
 # - http://superuser.com/questions/134679/command-line-application-for-converting-svg-to-png-on-mac-os-x
 

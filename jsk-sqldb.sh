@@ -6,7 +6,7 @@
 # source      : https://github.com/mirageglobe/swissknife
 # version     : 0.1.0
 
-# --------------------------------------------------------------------- todo ---
+# ------------------------------------------------------------------ todo ---
 
 # - check db backup file health
 # - check db operation connection health

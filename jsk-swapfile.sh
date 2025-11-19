@@ -6,7 +6,7 @@
 # source      : https://github.com/mirageglobe/swissknife
 # version     : 1.0.4
 
-# --------------------------------------------------------------- references ---
+# ---------------------------------------------------------------- reference ---
 
 # - update swap file -> https://help.ubuntu.com/community/SwapFaq
 # - make swap reference https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04

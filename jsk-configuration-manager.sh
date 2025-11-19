@@ -6,7 +6,7 @@
 # source      : https://github.com/mirageglobe/swissknife
 # version     : 0.1.0
 
-# --------------------------------------------------------------------- todo ---
+# -------------------------------------------------------------------- todo ---
 
 # - support raw folder for custom native shell scripts
 # - use default.json, custom.json for input rules. any scroll can be created in camp folder http://stackoverflow.com/questions/2835559/parsing-values-from-a-json-file-in-python

@@ -1,4 +1,4 @@
-# #!/usr/bin/env bash
+#!/usr/bin/env bash
 
 # ====================================================== project information ===
 
@@ -6,7 +6,7 @@
 # source      : https://github.com/mirageglobe/swissknife
 # version     : 0.1.1
 
-# --------------------------------------------------------------- references ---
+# ---------------------------------------------------------------- reference ---
 
 # - https://devhints.io/bash
 # - https://github.com/kristopolous/TickTick
