@@ -50,8 +50,9 @@ while true; do
   
   # Execute command and handle errors gracefully
   if ! "${command_to_run[@]}"; then
+    exit_code=$?
     echo ""
-    echo "==> Command failed with exit code: $?" >&2
+    echo "==> Command failed with exit code: $exit_code" >&2
   fi
   
   sleep "$time_interval"

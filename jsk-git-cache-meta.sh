@@ -19,15 +19,16 @@
 
 # --------------------------------------------------------------------- main ---
 
-: ${GIT_CACHE_META_FILE=.git_cache_meta}
+: "${GIT_CACHE_META_FILE:=.git_cache_meta}"
 case $@ in
   --store|--stdout)
-    case $1 in --store) exec > $GIT_CACHE_META_FILE; esac
+    case $1 in --store) exec > "$GIT_CACHE_META_FILE"; esac
+    # shellcheck disable=SC2046
     find $(git ls-files)\
       \( -printf 'chown %U %p\n' \) \
       \( -printf 'chgrp %G %p\n' \) \
       \( -printf 'touch -c -d "%AY-%Am-%Ad %AH:%AM:%AS" %p\n' \) \
       \( -printf 'chmod %#m %p\n' \) ;;
-  --apply) sh -e $GIT_CACHE_META_FILE;;
+  --apply) sh -e "$GIT_CACHE_META_FILE";;
   *) 1>&2 echo "Usage: $0 --store|--stdout|--apply"; exit 1;;
 esac

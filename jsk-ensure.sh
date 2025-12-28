@@ -12,7 +12,7 @@
 # ensure script is a basic bash cli tool for checking dependencies
 
 function ensure () {
-  (printf "[ok] ... $1 - " && command -v $1) || echo "[no] ... $1 not found"
+  (printf "[ok] ... %s - " "$1" && command -v "$1") || echo "[no] ... $1 not found"
 }
 
 ensure fox

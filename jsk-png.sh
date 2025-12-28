@@ -110,7 +110,7 @@ if [[ "${IMAGEEXT}" == "svg" ]]; then
   echo "$DTTEXT [ok]"
 
   echo "$DTTEXT export svg to png using svgexport"
-  svgexport ${IMAGEFULL} ${IMAGEPNG} png 100% "" 2x
+  svgexport "${IMAGEFULL}" "${IMAGEPNG}" png 100% "" 2x
   echo "$DTTEXT [ok]"
 
 fi

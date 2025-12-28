@@ -1,0 +1,31 @@
+name: "Lint and Test"
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@2.0.0
+        with:
+          version: v0.10.0
+          scandir: '.'
+          ignore: '.git'
+
+  bats:
+    name: Bats Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Bats
+        uses: bats-core/bats-action@3.0.0
+      - name: Run Bats tests
+        run: bats jsk-bash-lib-test.bats
+

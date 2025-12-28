@@ -11,7 +11,7 @@
 
 # usage: ./script.sh [utf char]
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
   echo "usage : $0 <utf char>";
   echo "        $0 5";
   exit 0;

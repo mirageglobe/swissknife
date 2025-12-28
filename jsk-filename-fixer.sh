@@ -23,7 +23,7 @@ then
   exit 2
 fi
 
-lowercase=$(echo "$file" | tr "[A-Z]" "[a-z]")
+lowercase=$(echo "$file" | tr '[:upper:]' '[:lower:]')
 
 if [ -f "$lowercase" ]
 then
