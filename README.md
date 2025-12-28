@@ -73,6 +73,13 @@ We welcome contributions! Please see our guides before getting started:
 
 ---
 
+## 📅 TODO
+- [ ] Refactor samurai script.
+- [ ] Update system check utility.
+- [ ] Add comprehensive tests.
+
+---
+
 ## ⚖️ License
 
 Copyright 2012-2025 Jimmy MG Lim (mirageglobe@gmail.com)
