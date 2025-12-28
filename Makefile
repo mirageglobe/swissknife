@@ -21,9 +21,11 @@ lint: ## Run ShellCheck on all jsk-*.sh scripts
 	@echo "==> Running ShellCheck..."
 	@shellcheck jsk-*.sh
 
-test: ## Run all Bats tests
+test: ## Run all Bats and Python tests
 	@echo "==> Running Bats tests..."
 	@bats *.bats
+	@echo "==> Running Python tests..."
+	@python3 jsk-system-check-test.py
 
 scan: ## Run vulnerability scan using trivy
 	@echo "==> Running trivy scan..."
