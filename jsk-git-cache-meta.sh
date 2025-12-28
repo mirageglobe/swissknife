@@ -5,6 +5,7 @@
 # author      : jimmy mg lim (mirageglobe@gmail.com)
 # source      : https://github.com/mirageglobe/swissknife
 # license     : Apache License 2.0
+# purpose     : Simple file metadata caching (permissions/owners) for Git repositories.
 # version     : 0.1.0
 
 # ---------------------------------------------------------------- reference ---

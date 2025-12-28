@@ -5,6 +5,7 @@
 # author      : jimmy mg lim (mirageglobe@gmail.com)
 # source      : https://github.com/mirageglobe/swissknife
 # license     : Apache License 2.0
+# purpose     : Checks if a Unix socket exists and is responsive with retries.
 # version     : 0.1.1
 
 # -------------------------------------------------------------------- usage ---

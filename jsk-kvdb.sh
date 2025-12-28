@@ -5,6 +5,7 @@
 # author      : jimmy mg lim (mirageglobe@gmail.com)
 # source      : https://github.com/mirageglobe/swissknife
 # license     : Apache License 2.0
+# purpose     : Minimal key-value database management using JSON-based storage.
 # version     : 0.1.1
 
 # ---------------------------------------------------------------- reference ---

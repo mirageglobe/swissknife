@@ -5,6 +5,7 @@
 # author      : jimmy mg lim (mirageglobe@gmail.com)
 # source      : https://github.com/mirageglobe/swissknife
 # license     : Apache License 2.0
+# purpose     : Database management and backup utility for MySQL, MariaDB, and others.
 # version     : 0.1.0
 
 # ------------------------------------------------------------------ todo ---
