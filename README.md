@@ -22,23 +22,26 @@ Example:
 ## 🛠️ Tool Categories
 
 ### 🐚 Utility & DevOps
-- **[jsk-bash-lib.sh](jsk-bash-lib.sh)**: Core library functions for bash scripting.
-- **[jsk-configuration-manager.sh](jsk-configuration-manager.sh)**: Minimalist configuration management.
-- **[jsk-swapfile.sh](jsk-swapfile.sh)**: Effortless swapfile setup for Linux.
-- **[jsk-filename-fixer.sh](jsk-filename-fixer.sh)**: Standardize filenames (lowercase, hyphens).
-- **[jsk-watch.sh](jsk-watch.sh)**: Simple command ticker/refresher.
-- **[jsk-ensure.sh](jsk-ensure.sh)**: Dependency checker for scripts.
+- **[jsk-bash-lib.sh](jsk-bash-lib.sh)**: Core shell library with utility functions for system, files, and UI.
+- **[jsk-configuration-manager.sh](jsk-configuration-manager.sh)**: Manages project-specific configurations and dotfile environments.
+- **[jsk-swapfile.sh](jsk-swapfile.sh)**: Utility to create and manage Linux swap files for memory management.
+- **[jsk-filename-fixer.sh](jsk-filename-fixer.sh)**: Normalizes filenames for URL-safe and cross-platform compatibility.
+- **[jsk-watch.sh](jsk-watch.sh)**: Runs a specified command at regular intervals with output monitoring.
+- **[jsk-ensure.sh](jsk-ensure.sh)**: Basic dependency checker for local environment requirements.
+- **[jsk-check-sftp.sh](jsk-check-sftp.sh)**: Validates SFTP availability and connectivity for remote transfers.
+- **[jsk-check-socket.sh](jsk-check-socket.sh)**: Checks if a Unix socket exists and is responsive with retries.
 
 ### 📼 Media Conversion
-- **[jsk-mp3.sh](jsk-mp3.sh)**: Optimize music files to MP3.
-- **[jsk-mp4.sh](jsk-mp4.sh)**: Batch convert video to MP4.
-- **[jsk-png.sh](jsk-png.sh)**: Web-optimized PNG conversion.
-- **[jsk-pdf.sh](jsk-pdf.sh)**: Compact PDF compression using Ghostscript.
+- **[jsk-mp3.sh](jsk-mp3.sh)**: Media conversion utility focused on creating high-quality MP3 audio.
+- **[jsk-mp4.sh](jsk-mp4.sh)**: Media conversion utility focused on creating optimized MP4 video.
+- **[jsk-png.sh](jsk-png.sh)**: Image conversion and optimization utility with a focus on PNG.
+- **[jsk-pdf.sh](jsk-pdf.sh)**: Utility for manipulating, joining, and processing PDF documents.
 
 ### 💾 Data & Security
-- **[jsk-kvdb.sh](jsk-kvdb.sh)**: Extremely simple JSON key-value store.
-- **[jsk-sqldb.sh](jsk-sqldb.sh)**: SQL database backup and restore helper.
-- **[jsk-check-socket.sh](jsk-check-socket.sh)**: Audit running service sockets.
+- **[jsk-kvdb.sh](jsk-kvdb.sh)**: Minimal key-value database management using JSON-based storage.
+- **[jsk-sqldb.sh](jsk-sqldb.sh)**: Database management and backup utility for MySQL, MariaDB, and others.
+- **[jsk-skv.sh](jsk-skv.sh)**: Simple shell-based key-value store for lightweight data tracking.
+- **[jsk-git-cache-meta.sh](jsk-git-cache-meta.sh)**: Simple file metadata caching (permissions/owners) for Git repositories.
 
 ---
 

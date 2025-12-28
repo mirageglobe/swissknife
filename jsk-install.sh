@@ -5,6 +5,7 @@
 # author      : jimmy mg lim (mirageglobe@gmail.com)
 # source      : https://github.com/mirageglobe/swissknife
 # license     : Apache License 2.0
+# purpose     : Bootstrap/installer for Swissknife utility scripts.
 # version     : 0.2.0
 
 # --------------------------------------------------------------------- main ---

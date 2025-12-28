@@ -5,6 +5,7 @@
 # author      : jimmy mg lim (mirageglobe@gmail.com)
 # source      : https://github.com/mirageglobe/swissknife
 # license     : Apache License 2.0
+# purpose     : Utility for converting and displaying UTF-8 character sequences.
 # version     : 0.1.0
 
 # --------------------------------------------------------------------- main ---
