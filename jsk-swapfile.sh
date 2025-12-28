@@ -4,6 +4,7 @@
 
 # author      : jimmy mg lim (mirageglobe@gmail.com)
 # source      : https://github.com/mirageglobe/swissknife
+# license     : Apache License 2.0
 # version     : 1.0.4
 
 # ---------------------------------------------------------------- reference ---

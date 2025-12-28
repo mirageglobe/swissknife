@@ -165,7 +165,7 @@ check_for_open_ports {
 # license
 
 ```text
-Copyright 2012 Jimmy MG Lim (mirageglobe@gmail.com)
+Copyright 2012-2025 Jimmy MG Lim (mirageglobe@gmail.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
