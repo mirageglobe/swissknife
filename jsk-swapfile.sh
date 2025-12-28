@@ -76,16 +76,16 @@ if [ "$1" == "deploy" ]; then
 
   echo "$DTTITLE updating fstab"
   echo "$DTTEXT writing /swapfile  none  swap  sw  0  0 to /etc/fstab"
-  sudo echo "/swapfile  none  swap  sw  0  0" >> /etc/fstab
+  echo "/swapfile  none  swap  sw  0  0" | sudo tee -a /etc/fstab > /dev/null
 
   #echo "[+] set swappiness"
   #cat /proc/sys/vm/swappiness
 
   echo "$DTTEXT writing vm.swappiness=10 to /etc/sysctl.conf"
-  sudo echo "vm.swappiness=10" >> /etc/sysctl.conf
+  echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf > /dev/null
 
   echo "$DTTEXT writing vm.vfs_cache_pressure=50 to /etc/sysctl.conf"
-  sudo echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf
+  echo "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf > /dev/null
 
   echo "$DTTEXT deployment complete. please reboot now if necessary. use sudo swapon -s or free -m"
 fi

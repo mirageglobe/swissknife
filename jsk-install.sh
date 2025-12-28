@@ -37,9 +37,23 @@ if git ls-files >& /dev/null && [[ -f samurai.py ]]; then
   $SUDO cp ./samurai-linux.py /usr/local/bin/samurai-linux.py || { echo "failed to install samurai-linux.py into /usr/local/bin."; exit 1; }
 else
   # install from remote github repo
-  $SUDO curl -L https://raw.githubusercontent.com/mirageglobe/samurai/master/samurai -o /usr/local/bin/samurai && $SUDO chmod +x /usr/local/bin/samurai || { echo "failed to install samurai into /usr/local/bin."; exit 1; }
-  $SUDO curl -L https://raw.githubusercontent.com/mirageglobe/samurai/master/samurai-mac.py -o /usr/local/bin/samurai-mac.py && $SUDO chmod +x /usr/local/bin/samurai-mac.py || { echo "failed to install samurai-mac.py into /usr/local/bin."; exit 1; }
-  $SUDO curl -L https://raw.githubusercontent.com/mirageglobe/samurai/master/samurai-linux.py -o /usr/local/bin/samurai-linux.py && $SUDO chmod +x /usr/local/bin/samurai-linux.py || { echo "failed to install samurai-linux.py into /usr/local/bin."; exit 1; }
+  if $SUDO curl -L https://raw.githubusercontent.com/mirageglobe/samurai/master/samurai -o /usr/local/bin/samurai && $SUDO chmod +x /usr/local/bin/samurai; then
+    : # Successful
+  else
+    echo "failed to install samurai into /usr/local/bin." ; exit 1
+  fi
+
+  if $SUDO curl -L https://raw.githubusercontent.com/mirageglobe/samurai/master/samurai-mac.py -o /usr/local/bin/samurai-mac.py && $SUDO chmod +x /usr/local/bin/samurai-mac.py; then
+    : # Successful
+  else
+    echo "failed to install samurai-mac.py into /usr/local/bin." ; exit 1
+  fi
+
+  if $SUDO curl -L https://raw.githubusercontent.com/mirageglobe/samurai/master/samurai-linux.py -o /usr/local/bin/samurai-linux.py && $SUDO chmod +x /usr/local/bin/samurai-linux.py; then
+    : # Successful
+  else
+    echo "failed to install samurai-linux.py into /usr/local/bin." ; exit 1
+  fi
 fi
 
 echo "installed $APP_NAME into /usr/local/bin.";

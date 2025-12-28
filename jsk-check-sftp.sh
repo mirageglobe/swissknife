@@ -27,4 +27,4 @@ fi
 SFTP_HOST="${1:-dh}"
 SFTP_OPTIONS="${2:--hi .}"
 
-sftp "$SFTP_HOST" $SFTP_OPTIONS
+sftp "$SFTP_HOST" "$SFTP_OPTIONS"

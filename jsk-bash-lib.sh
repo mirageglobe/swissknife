@@ -59,7 +59,7 @@ _spinner() {
   local delay=0.75
   local spinstr="|/-\\"
 
-  while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+  while ps a | awk '{print $1}' | grep -q "$pid"; do
     local temp=${spinstr#?}
     printf " [%c]  " "$spinstr"
     local spinstr=$temp${spinstr%"$temp"}
@@ -86,19 +86,15 @@ _spinner_simple() {
 
 _timestamp() {
   # define a timestamp function
-  local returnvar=''
-
-  local returnvar=date +"%T"
-
+  local returnvar
+  returnvar=$(date +"%T")
   echo "$returnvar"
 }
 
 _datestamp() {
   # define a datestamp function
-  local returnvar=''
-
-  local returnvar=date +"%Y%m%d%H%M%S"
-
+  local returnvar
+  returnvar=$(date +"%Y%m%d%H%M%S")
   echo "$returnvar"
 }
 
@@ -160,22 +156,22 @@ _is_macos() {
   rtn_val=1 
   # rtn boolean for error codes is 0 = true / 1 = false (reversed with boolean statements)
 
-  if echo "$(uname -s)" | grep -Fq 'Darwin'; then
+  if uname -s | grep -Fq 'Darwin'; then
     rtn_val=0
   fi
 
-  return $rtn_val
+  return "$rtn_val"
 }
 
 _is_linux() {
   rtn_val=1
   # rtn boolean for error codes is 0 = true / 1 = false (reversed with boolean statements)
 
-  if echo "$(uname -s)" | grep -Fq 'Linux'; then
+  if uname -s | grep -Fq 'Linux'; then
     rtn_val=0
   fi
 
-  return $rtn_val
+  return "$rtn_val"
 }
 
 _file_exists() {
@@ -201,16 +197,18 @@ _parse_yaml() {
   # https://gist.github.com/pkuczynski/8665367
 
   local prefix=$2
-  local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+  local s='[[:space:]]*' w='[a-zA-Z0-9_]*'
+  local fs
+  fs=$(echo @|tr @ '\034')
   sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
-    -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $1 |
-  awk -F$fs '{
+    -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p" "$1" |
+  awk -F"$fs" '{
   indent = length($1)/2;
   vname[indent] = $2;
   for (i in vname) {if (i > indent) {delete vname[i]}}
     if (length($3) > 0) {
       vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
-      printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
+      printf("%s%s%s=\"%s\"\n", "'"$prefix"'",vn, $2, $3);
     }
   }'
 }

@@ -33,7 +33,7 @@ echo ""
 show_colors() {
   local colors=$1
   echo "showing $colors ansi colors:"
-  for (( n=0; n < $colors; n++ )) do
+  for (( n=0; n < colors; n++ )) do
     if [[ $(( n % 8 )) == 0 ]]; then
       printf "\n"
     fi
