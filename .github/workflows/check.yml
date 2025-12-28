@@ -27,5 +27,17 @@ jobs:
       - name: Setup Bats
         uses: bats-core/bats-action@3.0.1
       - name: Run Bats tests
-        run: bats jsk-bash-lib-test.bats
+        run: bats *.bats
+
+  python:
+    name: Python Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.2'
+      - name: Run Python tests
+        run: python3 jsk-system-check-test.py
 
