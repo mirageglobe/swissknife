@@ -4,6 +4,7 @@
 
 # author      : jimmy mg lim (mirageglobe@gmail.com)
 # source      : https://github.com/mirageglobe/swissknife
+# license     : Apache License 2.0
 # version     : 0.1.1
 
 # -------------------------------------------------------------------- usage ---
@@ -12,9 +13,18 @@
 
 # --------------------------------------------------------------------- main ---
 
-# usage: ./script.sh
+# usage: ./script.sh [host] [options]
 
-# ensure that dependency tools are present
-command -v sftp || echo "==> tool not found : sftp" && exit 1;
+set -euo pipefail
 
-sftp dh -hi .
+# Validate sftp is available
+if ! command -v sftp &>/dev/null; then
+  echo "==> Error: sftp not found. Please install sftp." >&2
+  exit 1
+fi
+
+# Accept parameters or use defaults
+SFTP_HOST="${1:-dh}"
+SFTP_OPTIONS="${2:--hi .}"
+
+sftp "$SFTP_HOST" $SFTP_OPTIONS
