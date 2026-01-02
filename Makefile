@@ -19,7 +19,7 @@ all: lint test ## Run all checks (lint and test)
 ##@ Development & CI
 lint: ## Run ShellCheck on all jsk-*.sh scripts
 	@echo "==> Running ShellCheck..."
-	@shellcheck jsk-*.sh
+	@shellcheck jsk-*.sh jsk-help
 
 test: ## Run all Bats and Python tests
 	@echo "==> Running Bats tests..."
@@ -31,18 +31,65 @@ scan: ## Run vulnerability scan using trivy
 	@echo "==> Running trivy scan..."
 	@trivy filesystem --scanners vuln,secret,config .
 
+# --- Helper Functions ---
+define func_print_header
+	echo -e "\n\033[1m=== $(1) ===\033[0m"
+endef
+
+define func_print_arrow
+	echo -e " \033[32m>\033[0m $(1)"
+endef
+
+define func_confirm
+	read -p "  [?] $(1) (y/N) " ans; \
+	if [ "$$ans" != "y" ] && [ "$$ans" != "Y" ]; then \
+		echo "Aborted."; \
+		exit 1; \
+	fi
+endef
+
 ##@ Setup
-ensure: ## Setup local development environment and paths
-	@echo "==> Setting up ~/.swissknife environment..."
+ensure-swissknife: ## Install swissknife tools and setup environment
+	@$(call func_print_header,"Ensure Swissknife")
+	@$(call func_print_arrow,"Bootstrapping ~/.swissknife/bin and completions")
+	@$(call func_confirm,Proceed with setup?)
+	@# Create directories
 	@mkdir -pv $$HOME/.swissknife/bin $$HOME/.swissknife/completion
-	@# Add bin to path if not present
+	@# Add bin to path if not present (idempotent)
 	@grep -qxF 'export PATH="$$HOME/.swissknife/bin:$$PATH"' $$HOME/.bash_profile || \
-		echo 'export PATH="$$HOME/.swissknife/bin:$$PATH"' >> $$HOME/.bash_profile
+		(echo "" >> $$HOME/.bash_profile && \
+		 echo "# Added by swissknife on $$(date '+%Y-%m-%d %H:%M:%S')" >> $$HOME/.bash_profile && \
+		 echo 'export PATH="$$HOME/.swissknife/bin:$$PATH"' >> $$HOME/.bash_profile && \
+		 echo "Added to PATH")
+	@# Install local scripts
+	@echo "Installing jsk (jimmys swissknife) scripts..."
+	@cp -v *.sh *.py jsk-help $$HOME/.swissknife/bin/
+	@chmod +x $$HOME/.swissknife/bin/*.sh $$HOME/.swissknife/bin/*.py $$HOME/.swissknife/bin/jsk-help
 	@# Install semver tool
+	@echo "Installing semver..."
 	@curl -sLS https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver > $$HOME/.swissknife/bin/semver
 	@chmod u+x $$HOME/.swissknife/bin/semver
 	@# Install git-completion
+	@echo "Installing git-completion..."
 	@curl -sLS https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > $$HOME/.swissknife/completion/git-completion.bash
-	@echo "==> Setup complete. Please restart your shell or source ~/.bash_profile"
+	@# Summary
+	@echo ""
+	@$(call func_print_arrow,"Setup complete!")
+	@echo "Contents of ~/.swissknife/bin:"
+	@ls -1 $$HOME/.swissknife/bin
+	@echo "Contents of ~/.swissknife/completion:"
+	@ls -1 $$HOME/.swissknife/completion
+	@echo ""
+	@echo "Please restart your shell or run: source ~/.bash_profile"
 
-.PHONY: help all lint test scan ensure
+##@ VM Testing
+vm-up: ## Start the vagrant test VM
+	vagrant up
+
+vm-ssh: ## SSH into the vagrant test VM
+	vagrant ssh
+
+vm-destroy: ## Destroy the vagrant test VM
+	vagrant destroy -f
+
+.PHONY: help all lint test scan ensure-swissknife vm-up vm-ssh vm-destroy

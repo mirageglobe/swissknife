@@ -18,6 +18,26 @@
 # - check os
 # - check if swapon no response
 
+# --------------------------------------------------------------------- check os ---
+
+if [[ "$(uname)" != "Linux" ]]; then
+  echo "Error: This script must be run on Linux."
+  exit 1
+fi
+
+if [ -f /etc/os-release ]; then
+    # shellcheck source=/dev/null
+    . /etc/os-release
+    if [[ "$ID" != "debian" && "$ID" != "ubuntu" && "$ID_LIKE" != *"debian"* && "$ID_LIKE" != *"ubuntu"* ]]; then
+        echo "Error: This script is designed for Debian or Ubuntu systems only."
+        echo "Detected: $PRETTY_NAME"
+        exit 1
+    fi
+else
+    echo "Error: Cannot determine OS distribution (/etc/os-release not found)."
+    exit 1
+fi
+
 # --------------------------------------------------------------------- main ---
 
 # run this script to generate a 2gb swap file
