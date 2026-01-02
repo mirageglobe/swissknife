@@ -4,7 +4,25 @@
 
 An opinionated collection of scripts and tools to standardize common tasks like media conversion, system configuration, and CLI utilities.
 
-## 🚀 Quick Start
+## � Installation
+
+To install all tools and scripts into your local environment:
+
+```bash
+make ensure-swissknife
+```
+
+This will:
+1. Create `~/.swissknife/bin` and `~/.swissknife/completion`.
+2. Install all `jsk-*` scripts and helpers.
+3. Add `~/.swissknife/bin` to your `PATH` in `~/.bash_profile`.
+4. Install `semver` and `git-completion`.
+
+## 🖼️ Preview
+
+![jsk-help output](assets/nsk-help-screenshot.png)
+
+## �🚀 Quick Start
 
 To run any tool and see options:
 
@@ -80,6 +98,26 @@ We welcome contributions! Please see our guides before getting started:
 - [ ] Refactor samurai script.
 - [ ] Update system check utility.
 - [ ] Add comprehensive tests.
+
+---
+
+## 🧪 Testing with Vagrant
+
+You can spin up a dedicated test environment (Ubuntu Jammy) to test these scripts safely without affecting your host machine.
+
+### Prerequisites
+- VirtualBox
+- Vagrant
+
+### Why Vagrant?
+Vagrant is preferred over Docker for this project because some scripts (like `jsk-swapfile.sh`) perform low-level system operations (kernel swap management, `/etc/fstab` modification) that are not natively supported or easily testable inside standard containers. A full VM ensures accurate verification of these system-level changes.
+
+### Commands
+- `make vm-up`: Start and provision the test VM. This will automatically install swissknife tools inside the VM.
+- `make vm-ssh`: SSH into the test VM.
+- `make vm-destroy`: Destroy the test VM.
+
+Once inside the VM, you can test scripts like `jsk-swapfile.sh` which require Linux permissions.
 
 ---
 

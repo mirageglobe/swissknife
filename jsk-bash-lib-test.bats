@@ -9,6 +9,7 @@
 
 # --------------------------------------------------------------------- main ---
 
+# shellcheck source=./jsk-bash-lib.sh
 source ./jsk-bash-lib.sh
 
 @test "_allow_os test os" {
