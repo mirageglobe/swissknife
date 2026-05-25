@@ -8,7 +8,7 @@
 # purpose     : Cross-platform system diagnostic tool for OS, disk, and apps.
 # version     : 1.1.0
 
-import os
+import json
 import platform
 import shutil
 import subprocess
@@ -25,6 +25,9 @@ applist         get common installed applications
 runningapps     get current running applications
 version         get current script version
 help            get list of commands
+
+flags:
+  --json        output result as JSON
 """
 
 def get_os():
@@ -38,6 +41,10 @@ def get_disk():
         f"Free:  {free // (2**30)} GB"
     )
 
+def get_disk_dict():
+    total, used, free = shutil.disk_usage("/")
+    return {"total_gb": total // (2**30), "used_gb": used // (2**30), "free_gb": free // (2**30)}
+
 def get_version():
     return "1.1.0"
 
@@ -49,13 +56,14 @@ def get_app_list():
         results.append(f"{app:<10} {status}")
     return "\n".join(results)
 
+def get_app_list_dict():
+    apps = ["nginx", "git", "docker", "python3", "bash", "curl"]
+    return {app: bool(shutil.which(app)) for app in apps}
+
 def get_running_apps():
-    # Example: checking for common processes
-    # On Linux/macOS, we can use pgrep if available or ps/grep
     targets = ["nginx", "sophos", "docker", "ssh"]
     found = []
     try:
-        # Simplified check using pgrep if available
         for target in targets:
             try:
                 subprocess.check_output(["pgrep", "-f", target])
@@ -64,33 +72,61 @@ def get_running_apps():
                 found.append(f"{target:<10} [STOPPED]")
     except FileNotFoundError:
         return "pgrep not found. Cannot check running apps easily."
-    
     return "\n".join(found)
 
+def get_running_apps_dict():
+    targets = ["nginx", "sophos", "docker", "ssh"]
+    result = {}
+    try:
+        for target in targets:
+            try:
+                subprocess.check_output(["pgrep", "-f", target])
+                result[target] = True
+            except subprocess.CalledProcessError:
+                result[target] = False
+    except FileNotFoundError:
+        return {}
+    return result
+
 if __name__ == "__main__":
-    # check for python 3
     if sys.version_info.major < 3:
         print("[error] requires python 3.x")
         sys.exit(1)
 
-    if len(sys.argv) < 2 or sys.argv[1] == "help":
+    args = [a for a in sys.argv[1:] if a != "--json"]
+    use_json = "--json" in sys.argv[1:]
+
+    if not args or args[0] == "help":
         print(get_help())
         sys.exit(0)
 
-    cmd = sys.argv[1]
+    cmd = args[0]
 
     if cmd == "check":
-        print(f"Operating System : {get_os()}")
-        print("\nDisk Space:")
-        print(get_disk())
+        if use_json:
+            total, used, free = shutil.disk_usage("/")
+            print(json.dumps({"os": get_os(), "disk": get_disk_dict()}, indent=2))
+        else:
+            print(f"Operating System : {get_os()}")
+            print("\nDisk Space:")
+            print(get_disk())
     elif cmd == "applist":
-        print("Common Applications:")
-        print(get_app_list())
+        if use_json:
+            print(json.dumps(get_app_list_dict(), indent=2))
+        else:
+            print("Common Applications:")
+            print(get_app_list())
     elif cmd == "runningapps":
-        print("Target Running Applications:")
-        print(get_running_apps())
+        if use_json:
+            print(json.dumps(get_running_apps_dict(), indent=2))
+        else:
+            print("Target Running Applications:")
+            print(get_running_apps())
     elif cmd == "version":
-        print(get_version())
+        if use_json:
+            print(json.dumps({"version": get_version()}))
+        else:
+            print(get_version())
     else:
         print(f"Invalid command: {cmd}")
         print(get_help())
