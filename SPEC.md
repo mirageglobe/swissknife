@@ -16,6 +16,24 @@ swissknife (`jsk`) is a personal toolkit of standalone bash and python scripts. 
 
 **safe to run.** scripts guard against incompatible environments (e.g. `jsk-swapfile.sh` refuses to run on non-Linux). writes to the filesystem are scoped and explicit.
 
+**start in bash, graduate to python, then go.** bash is the default because most tools are orchestration: wiring binaries together through pipes, exit codes, and environment. that is bash's native data model, not a compromise. a tool graduates when it outgrows the shell:
+
+- **bash to python** when real logic appears: parsing structured data (json, csv), byte/string manipulation, arithmetic, dates, nested state, or arrays/dicts that matter. the trigger is a smell, not taste: a script faking data structures with `awk`/`sed`/`jq` pipelines, or sprouting nested conditionals, has outgrown bash.
+- **python to go** when the tool needs a single distributable binary (no runtime on the target), real performance, concurrency, or strong typing.
+
+graduating has a cost: a bash tool loses the shared `jsk-bash-lib.sh` and `jsk-color.sh` helpers and adds a `uv`/venv dependency, so don't move a tool until it has earned it. the existing split reflects this; binary-wrapping checkers stay in bash, anything with parsing or logic is python.
+
+| signal                              | language |
+| :---                                | :---     |
+| pipes, exit codes, env glue         | bash     |
+| runs before deps are installed      | bash     |
+| parsing structured data (json, csv) | python   |
+| arithmetic, dates, regex on content | python   |
+| arrays/dicts, nested state          | python   |
+| >~100 lines of logic                | python   |
+| single static binary, no runtime    | go       |
+| performance or concurrency          | go       |
+
 ---
 
 ## 2. architecture
@@ -184,6 +202,7 @@ bash ./jsk-swapfile.sh
 - **bash over POSIX sh**: bash is ubiquitous and allows arrays, `[[ ]]`, and `source`; strict POSIX portability is not a goal.
 - **bats for bash testing**: closest analogue to unit testing in shell; integrates naturally with `make test`.
 - **vagrant for linux testing**: macOS is the dev host but several tools (e.g. `jsk-swapfile.sh`) target Linux only; vagrant provides a reproducible test environment without CI overhead.
+- **start in bash, graduate to python/go**: bash is the default for orchestration tools (pipes, exit codes, env glue); a tool moves to python when it grows real logic (parsing, data structures, byte work) and to go when it needs a single static binary, performance, or concurrency. graduating costs the shared bash helpers and adds a runtime dependency, so it is deferred until the tool earns it.
 - **`jsk-bash-lib.sh` as opt-in**: tools source it only if they need it — no mandatory coupling.
 
 ---
